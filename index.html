@@ -1,71 +1,131 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Agent System Map</title>
+  <title>Personal Copilot V1 Status</title>
   <style>
     :root {
-      --bg: #f6f4ef;
-      --panel: #fffdf8;
-      --ink: #182230;
-      --muted: #5f6773;
-      --line: #d8d0c4;
-      --accent: #195e7a;
-      --accent-2: #7a4f20;
-      --accent-3: #2f7d32;
-      --warn: #9b4d00;
-      --shadow: 0 18px 50px rgba(27, 38, 51, 0.08);
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --panel-alt: #f8fafc;
+      --ink: #16202b;
+      --muted: #586271;
+      --line: #d9e0e7;
+      --accent: #166534;
+      --accent-2: #0f4c81;
+      --accent-3: #915f14;
+      --warn: #b45309;
+      --danger: #b42318;
+      --shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
       --radius: 18px;
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(25, 94, 122, 0.08), transparent 28%),
-        radial-gradient(circle at top right, rgba(122, 79, 32, 0.08), transparent 28%),
-        linear-gradient(180deg, #fbfaf7, var(--bg));
+        radial-gradient(circle at top left, rgba(15, 76, 129, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(22, 101, 52, 0.08), transparent 28%),
+        linear-gradient(180deg, #fbfcfd, var(--bg));
+    }
+
+    a {
+      color: inherit;
     }
 
     .wrap {
-      max-width: 1200px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 32px 20px 56px;
+      padding: 28px 18px 56px;
     }
 
-    .hero {
-      padding: 28px 28px 18px;
+    .hero,
+    .card,
+    .band {
+      background: rgba(255, 255, 255, 0.94);
       border: 1px solid var(--line);
-      border-radius: 28px;
-      background: rgba(255, 253, 248, 0.8);
-      backdrop-filter: blur(10px);
       box-shadow: var(--shadow);
     }
 
-    .kicker {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+    .hero {
+      border-radius: 28px;
+      padding: 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-2);
       font-size: 12px;
-      color: var(--accent);
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     h1 {
-      margin: 10px 0 12px;
-      font-size: clamp(30px, 4vw, 52px);
-      line-height: 1.05;
-      max-width: 15ch;
+      margin: 12px 0 12px;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.02;
+      max-width: 12ch;
     }
 
     .subtitle {
+      max-width: 76ch;
       margin: 0;
-      max-width: 82ch;
       color: var(--muted);
       font-size: 16px;
       line-height: 1.7;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.95);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--panel-alt);
+      border: 1px solid var(--line);
+      min-height: 116px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .metric span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     .grid {
@@ -75,114 +135,75 @@
     }
 
     .grid.two {
-      grid-template-columns: 1.4fr 0.9fr;
+      grid-template-columns: 1.1fr 0.9fr;
     }
 
     .grid.three {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .card {
-      background: rgba(255, 253, 248, 0.95);
-      border: 1px solid var(--line);
+    .card,
+    .band {
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 20px;
+      padding: 22px;
     }
 
-    .card h2, .card h3 {
-      margin: 0 0 10px;
+    .card h2,
+    .card h3,
+    .band h2 {
+      margin: 0 0 12px;
       line-height: 1.15;
     }
 
-    .card p {
+    .card p,
+    .band p {
       margin: 0;
       color: var(--muted);
       line-height: 1.65;
     }
 
-    .flow {
-      display: grid;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .flow-row {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       gap: 12px;
-      align-items: stretch;
+      margin-bottom: 12px;
     }
 
-    .node {
-      padding: 16px 14px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, #fffefa, #f7f4ed);
-      min-height: 110px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .node strong {
-      display: block;
-      margin-top: 8px;
-      font-size: 15px;
-    }
-
-    .node small {
-      display: block;
-      margin-top: 6px;
+    .section-head span {
       color: var(--muted);
-      line-height: 1.45;
+      font-size: 13px;
+      text-align: right;
     }
 
-    .arrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      font-size: 22px;
-      font-weight: 700;
-      transform: translateY(2px);
+    .stack {
+      display: grid;
+      gap: 12px;
     }
 
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .pill {
-      padding: 7px 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.7);
-    }
-
-    .checklist {
+    .list {
       display: grid;
       gap: 10px;
-      margin-top: 8px;
+      margin-top: 12px;
     }
 
     .item {
       display: grid;
-      grid-template-columns: 20px 1fr;
-      gap: 10px;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
       align-items: start;
       padding: 12px 0;
-      border-top: 1px solid rgba(216, 208, 196, 0.55);
+      border-top: 1px solid rgba(217, 224, 231, 0.8);
     }
 
-    .item:first-child { border-top: 0; }
+    .item:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
 
-    .status {
-      width: 20px;
-      height: 20px;
+    .badge {
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       display: grid;
       place-items: center;
@@ -191,58 +212,154 @@
       margin-top: 2px;
     }
 
-    .done { background: rgba(47, 125, 50, 0.14); color: var(--accent-3); }
-    .todo { background: rgba(155, 77, 0, 0.12); color: var(--warn); }
+    .done {
+      color: var(--accent);
+      background: rgba(22, 101, 52, 0.12);
+    }
 
-    .mini-ill {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #fbf7ef, #eef4f7);
-      border: 1px solid rgba(24, 34, 48, 0.08);
-      margin-bottom: 12px;
+    .plan {
+      color: var(--warn);
+      background: rgba(180, 83, 9, 0.14);
+    }
+
+    .note {
+      color: var(--accent-2);
+      background: rgba(15, 76, 129, 0.12);
+    }
+
+    .surface {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+    }
+
+    .surface strong {
       display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
     }
 
-    .section-title {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
+    .surface p {
+      font-size: 14px;
+    }
+
+    .matrix {
+      display: grid;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-top: 12px;
     }
 
-    .section-title span {
+    .row {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .cell {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: var(--panel-alt);
+    }
+
+    .cell h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .cell ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .issue-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .issue {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 15px;
+      background: linear-gradient(180deg, #ffffff, #fbfcfd);
+    }
+
+    .issue strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .issue span {
+      display: block;
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.5;
     }
 
-    .code {
+    .criteria {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
       margin-top: 12px;
-      padding: 14px;
-      border-radius: 14px;
-      background: #12202b;
-      color: #e7f1f6;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 12px;
-      line-height: 1.55;
-      overflow: auto;
+    }
+
+    .criterion {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+      min-height: 136px;
+    }
+
+    .criterion strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .criterion p {
+      font-size: 14px;
     }
 
     footer {
       margin-top: 18px;
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
     }
 
-    @media (max-width: 960px) {
-      .grid.two, .grid.three, .flow-row {
+    @media (max-width: 980px) {
+      .hero-metrics,
+      .grid.two,
+      .grid.three,
+      .row,
+      .columns,
+      .criteria {
         grid-template-columns: 1fr;
       }
 
-      .arrow {
-        transform: rotate(90deg);
-        min-height: 20px;
+      .section-head {
+        display: block;
+      }
+
+      .section-head span {
+        display: block;
+        margin-top: 6px;
+        text-align: left;
       }
     }
   </style>
@@ -250,259 +367,271 @@
 <body>
   <div class="wrap">
     <section class="hero">
-      <div class="kicker">Agent System Map</div>
-      <h1>Hệ thống agent hiện có, vẽ lại cho dễ hiểu</h1>
+      <div class="eyebrow">Status Page • Personal Copilot V1</div>
+      <h1>Current repository status, not a generic harness map.</h1>
       <p class="subtitle">
-        Trang này mô tả bản khung agent chúng ta vừa dựng: nó đã có lớp gọi model, harness,
-        console, tool mẫu, cấu hình môi trường, và test cơ bản. Nó chưa phải một agent cá nhân hoàn chỉnh,
-        vì còn thiếu mục tiêu riêng, dữ liệu riêng, tool thật, bộ nhớ dài hạn, cơ chế an toàn, và giao diện dùng hàng ngày.
+        This repository now describes a Personal Copilot with a narrower V1: technical work and
+        personal knowledge work inside the current repository. The CLI is the work surface. This
+        static page exists only to show scope, implemented surfaces, major decisions, and the
+        remaining local-issue backlog.
       </p>
-      <div class="legend">
-        <span class="pill">Python</span>
-        <span class="pill">Microsoft Agent Framework</span>
-        <span class="pill">Foundry chat client</span>
-        <span class="pill">Harness + tools + memory + planning</span>
-        <span class="pill">GitHub Pages</span>
+      <div class="pill-row">
+        <span class="pill">V1 is limited to the Current Repository</span>
+        <span class="pill">Web Research requires Source Comparison</span>
+        <span class="pill">Search Provider is replaceable</span>
+        <span class="pill">Memory Surface lives in <code>.learnings/</code></span>
+        <span class="pill">Backlog lives in <code>.codex/issues/</code></span>
+        <span class="pill">GitHub Pages compatible static HTML</span>
+      </div>
+      <div class="hero-metrics">
+        <div class="metric">
+          <strong>1</strong>
+          <span>current repository is the full V1 operating boundary for edits, verification, memory writes, and local issues</span>
+        </div>
+        <div class="metric">
+          <strong>3</strong>
+          <span>autonomy levels are defined: Edit Mode, Deliver Mode, and Auto Mode</span>
+        </div>
+        <div class="metric">
+          <strong>9</strong>
+          <span>local issues currently track the implementation backlog ahead of this status page update</span>
+        </div>
+        <div class="metric">
+          <strong>5</strong>
+          <span>plain-language criteria define when Personal Copilot V1 is actually complete</span>
+        </div>
       </div>
     </section>
 
-    <div class="grid two" style="margin-top:18px;">
+    <div class="grid two">
       <section class="card">
-        <div class="section-title">
-          <h2>Luồng chính hiện tại</h2>
-          <span>người dùng → CLI → harness → model</span>
+        <div class="section-head">
+          <h2>V1 Scope</h2>
+          <span>what this system is for right now</span>
         </div>
-        <p>
-          Luồng này là xương sống của hệ thống. Người dùng gõ lệnh vào console, CLI đọc cấu hình,
-          tạo Foundry chat client, bọc nó vào harness agent, rồi agent gọi model và tool khi cần.
-        </p>
-
-        <div class="flow">
-          <div class="flow-row">
-            <div class="node">
-              <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="User typing">
-                <rect x="30" y="32" width="260" height="116" rx="18" fill="#fff" stroke="#b9c6d1"/>
-                <rect x="54" y="58" width="176" height="14" rx="7" fill="#cfe0ea"/>
-                <rect x="54" y="88" width="220" height="14" rx="7" fill="#cfe0ea"/>
-                <rect x="54" y="118" width="120" height="14" rx="7" fill="#9cc7d8"/>
-                <circle cx="260" cy="122" r="20" fill="#195e7a"/>
-                <path d="M252 122h16M260 114v16" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-              </svg>
-              <strong>Người dùng</strong>
-              <small>Nhập câu hỏi, yêu cầu tra cứu, hoặc lệnh hệ thống.</small>
-            </div>
-            <div class="arrow">→</div>
-            <div class="node">
-              <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="CLI and config">
-                <rect x="26" y="28" width="268" height="124" rx="18" fill="#111827"/>
-                <rect x="42" y="44" width="236" height="12" rx="6" fill="#334155"/>
-                <rect x="42" y="76" width="118" height="12" rx="6" fill="#7a4f20"/>
-                <rect x="42" y="102" width="190" height="12" rx="6" fill="#195e7a"/>
-                <rect x="42" y="128" width="140" height="12" rx="6" fill="#2f7d32"/>
-              </svg>
-              <strong>CLI + config</strong>
-              <small>Đọc biến môi trường, kiểm tra endpoint và chọn chế độ chạy.</small>
-            </div>
-            <div class="arrow">→</div>
-            <div class="node">
-              <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Agent harness">
-                <rect x="64" y="38" width="192" height="104" rx="24" fill="#195e7a" opacity="0.14" stroke="#195e7a"/>
-                <circle cx="112" cy="90" r="20" fill="#195e7a"/>
-                <circle cx="160" cy="90" r="20" fill="#7a4f20"/>
-                <circle cx="208" cy="90" r="20" fill="#2f7d32"/>
-                <path d="M92 120h136" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
-              </svg>
-              <strong>Harness agent</strong>
-              <small>Gắn instruction, tool, memory, planning, todo, và web search.</small>
-            </div>
-            <div class="arrow">→</div>
-            <div class="node">
-              <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Model and tools">
-                <rect x="36" y="34" width="248" height="112" rx="18" fill="#fff" stroke="#b9c6d1"/>
-                <path d="M60 112h200" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
-                <path d="M96 76l26 26 34-42" fill="none" stroke="#2f7d32" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="236" cy="76" r="18" fill="#7a4f20"/>
-              </svg>
-              <strong>Model + tools</strong>
-              <small>Gọi model, tool mẫu, và nguồn web khi bài toán cần dữ liệu ngoài.</small>
-            </div>
+        <div class="stack">
+          <div class="surface">
+            <strong>Primary use case</strong>
+            <p>The Personal Copilot helps one Primary User understand, change, review, document, and research software work, while also preserving reusable knowledge inside this repository.</p>
+          </div>
+          <div class="surface">
+            <strong>Current Repository only</strong>
+            <p>V1 does not span multiple repos, cloud drives, inboxes, or life-admin systems. Repository knowledge in this repo is the local source of truth.</p>
+          </div>
+          <div class="surface">
+            <strong>Work Surface</strong>
+            <p>The CLI is where task intake, planning, verification, and completion reporting happen. This page is informational only and is not the working interface.</p>
           </div>
         </div>
       </section>
 
       <aside class="card">
-        <div class="section-title">
-          <h2>Cái đã có</h2>
-          <span>trạng thái hiện tại</span>
+        <div class="section-head">
+          <h2>ADR Decisions</h2>
+          <span>plain language</span>
         </div>
-        <div class="checklist">
+        <div class="list">
           <div class="item">
-            <div class="status done">✓</div>
+            <div class="badge note">1</div>
             <div>
-              <strong>Project Python chạy được</strong>
-              <p>Đã có `pyproject.toml`, lockfile, entrypoint, và test.</p>
+              <strong>Replaceable search backend</strong>
+              <p>Web research is mandatory for fresh facts, but the search backend is not permanent. V1 may default to Microsoft-hosted search when available, while the copilot behavior stays provider-agnostic.</p>
             </div>
           </div>
           <div class="item">
-            <div class="status done">✓</div>
+            <div class="badge note">2</div>
             <div>
-              <strong>Foundry chat client</strong>
-              <p>Đã nối vào `agent_framework.foundry.FoundryChatClient`.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="status done">✓</div>
-            <div>
-              <strong>Harness + tool mẫu</strong>
-              <p>Có `create_harness_agent` và tool `get_current_time` để chứng minh luồng gọi hàm.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="status done">✓</div>
-            <div>
-              <strong>Console tối thiểu</strong>
-              <p>Có lệnh để xem mode, todo, xuất/nhập session.</p>
+              <strong>Single-repo boundary first</strong>
+              <p>Multi-repo support is deferred until the core loop is proven. That keeps repository edits, memory routing, and verification simpler in V1.</p>
             </div>
           </div>
         </div>
       </aside>
     </div>
 
-    <div class="grid three">
-      <section class="card">
-        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: CLI">
-          <rect x="38" y="40" width="244" height="100" rx="18" fill="#111827"/>
-          <rect x="56" y="60" width="160" height="12" rx="6" fill="#7dd3fc"/>
-          <rect x="56" y="88" width="110" height="12" rx="6" fill="#f59e0b"/>
-          <rect x="56" y="114" width="190" height="12" rx="6" fill="#34d399"/>
-        </svg>
-        <h3>1. CLI</h3>
-        <p>Nhận lệnh, kiểm tra env, gọi console. Đây là cửa vào của hệ thống.</p>
-      </section>
-      <section class="card">
-        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: Harness">
-          <rect x="60" y="34" width="200" height="112" rx="22" fill="#195e7a" opacity="0.14" stroke="#195e7a"/>
-          <circle cx="110" cy="90" r="22" fill="#195e7a"/>
-          <circle cx="160" cy="90" r="22" fill="#7a4f20"/>
-          <circle cx="210" cy="90" r="22" fill="#2f7d32"/>
-        </svg>
-        <h3>2. Harness</h3>
-        <p>Bọc model bằng vòng lặp agent, gắn công cụ, memory, planning, todo.</p>
-      </section>
-      <section class="card">
-        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: Tools">
-          <rect x="42" y="38" width="236" height="104" rx="18" fill="#fff" stroke="#b9c6d1"/>
-          <path d="M78 90h164" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
-          <circle cx="110" cy="90" r="16" fill="#2f7d32"/>
-          <circle cx="170" cy="90" r="16" fill="#7a4f20"/>
-        </svg>
-        <h3>3. Tools</h3>
-        <p>Hàm mà model có thể gọi để lấy dữ liệu thật, không đoán bằng trí nhớ.</p>
-      </section>
-      <section class="card">
-        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: Memory">
-          <rect x="70" y="34" width="180" height="112" rx="20" fill="#fff7ed" stroke="#c58d51"/>
-          <path d="M100 70h120M100 92h90M100 114h105" stroke="#7a4f20" stroke-width="8" stroke-linecap="round"/>
-        </svg>
-        <h3>4. Memory</h3>
-        <p>Nơi lưu sở thích, ngữ cảnh dài hạn, và các ghi chú bền vững giữa các phiên.</p>
-      </section>
-      <section class="card">
-        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: Planning">
-          <rect x="48" y="38" width="224" height="104" rx="18" fill="#eff6ff" stroke="#7da2d6"/>
-          <path d="M84 86h152" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
-          <path d="M84 110h98" stroke="#2f7d32" stroke-width="8" stroke-linecap="round"/>
-        </svg>
-        <h3>5. Planning</h3>
-        <p>Chuyển yêu cầu mơ hồ thành kế hoạch, rồi mới thực thi từng bước.</p>
-      </section>
-      <section class="card">
-        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: GitHub Pages">
-          <rect x="58" y="34" width="204" height="112" rx="20" fill="#eef2ff" stroke="#9aa4d9"/>
-          <path d="M108 118l52-60 52 60" fill="none" stroke="#7a4f20" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M112 118h96" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
-        </svg>
-        <h3>6. GitHub Pages</h3>
-        <p>Xuất trang mô tả hệ thống để xem online như tài liệu sống.</p>
-      </section>
-    </div>
+    <section class="band grid" style="margin-top:18px;">
+      <div class="section-head">
+        <h2>Implemented Surfaces in the Repository</h2>
+        <span>based on the current code and docs layout</span>
+      </div>
+      <div class="matrix">
+        <div class="row">
+          <div class="cell">
+            <h3>Runtime and control surfaces</h3>
+            <ul>
+              <li><code>src/agent_harness/cli.py</code> and <code>console.py</code> establish the CLI work surface.</li>
+              <li><code>agent.py</code>, <code>instructions.py</code>, and <code>tools.py</code> define the harness and tool layer.</li>
+              <li><code>config.py</code> and <code>__main__.py</code> provide entry and configuration wiring.</li>
+            </ul>
+          </div>
+          <div class="cell">
+            <h3>Decision-backed capability modules</h3>
+            <ul>
+              <li><code>search.py</code> represents the search provider abstraction for web research.</li>
+              <li><code>memory_surface.py</code> represents the repository-backed memory surface.</li>
+              <li><code>backlog.py</code>, <code>autonomy.py</code>, <code>planning.py</code>, <code>reports.py</code>, <code>secrets.py</code>, <code>verification.py</code>, and <code>intake.py</code> map directly to the V1 workflow vocabulary.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="cell">
+          <h3>Memory Surface</h3>
+          <ul>
+            <li><code>.learnings/LEARNINGS.md</code> stores durable repo learnings and confirmed working preferences.</li>
+            <li><code>.learnings/ERRORS.md</code> stores recurring failures, root causes, and verified fixes.</li>
+            <li><code>.learnings/FEATURE_REQUESTS.md</code> stores rough future capability ideas.</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <h3>Backlog</h3>
+          <ul>
+            <li><code>.codex/issues/</code> is the implementation-ready backlog for local issues.</li>
+            <li>Issues are concrete enough for an agent or another contributor to pick up independently.</li>
+            <li>The backlog is separate from memory; it tracks buildable work rather than durable knowledge.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
     <div class="grid two">
       <section class="card">
-        <div class="section-title">
-          <h2>Những gì còn thiếu để thành agent cá nhân hoàn chỉnh</h2>
-          <span>đây là phần quan trọng</span>
+        <div class="section-head">
+          <h2>Autonomy Levels</h2>
+          <span>permission modes defined for V1</span>
         </div>
-        <div class="checklist">
+        <div class="list">
           <div class="item">
-            <div class="status todo">!</div>
+            <div class="badge done">E</div>
             <div>
-              <strong>Mục tiêu cá nhân rõ ràng</strong>
-              <p>Agent phải biết nó phục vụ việc gì: học tập, công việc, tài chính, nghiên cứu, hay quản lý đời sống.</p>
+              <strong>Edit Mode</strong>
+              <p>The default V1 mode. Repository edits and verification runs are allowed, but delivery actions still need approval or a higher mode.</p>
             </div>
           </div>
           <div class="item">
-            <div class="status todo">!</div>
+            <div class="badge note">D</div>
             <div>
-              <strong>Tool thật</strong>
-              <p>Kết nối Gmail, Calendar, Slack, Drive, Notion, database, file system, hoặc API riêng của bạn.</p>
+              <strong>Deliver Mode</strong>
+              <p>The copilot may perform repository edits plus directly requested delivery actions such as commit, push, PR creation, or similar publish steps.</p>
             </div>
           </div>
           <div class="item">
-            <div class="status todo">!</div>
+            <div class="badge plan">A</div>
             <div>
-              <strong>Memory dài hạn có cấu trúc</strong>
-              <p>Không chỉ lưu session; cần quy tắc ghi nhớ, quên, và cập nhật những gì đúng là cần nhớ lâu.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="status todo">!</div>
-            <div>
-              <strong>Guardrails và phê duyệt</strong>
-              <p>Hành động nguy hiểm phải có xác nhận, logging, và quyền hạn rõ ràng.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="status todo">!</div>
-            <div>
-              <strong>UI dùng hằng ngày</strong>
-              <p>Có thể là web app, desktop, mobile, hoặc integration vào app bạn dùng thường xuyên.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="status todo">!</div>
-            <div>
-              <strong>Kiểm thử hành vi</strong>
-              <p>Cần test cho prompt, tool call, memory, session restore, và lỗi ngoài đời thực.</p>
+              <strong>Auto Mode</strong>
+              <p>The copilot may choose necessary repository edits and delivery actions inside explicit boundaries set by the Primary User.</p>
             </div>
           </div>
         </div>
       </section>
 
       <section class="card">
-        <div class="section-title">
-          <h2>Ví dụ ngắn</h2>
-          <span>hệ thống hiện tại đang làm gì</span>
+        <div class="section-head">
+          <h2>Web Research Model</h2>
+          <span>quality bar, not just a tool hook</span>
         </div>
-        <p>
-          Khi bạn nhập một yêu cầu, ví dụ "xem giờ hiện tại", agent sẽ đi qua khung này:
-        </p>
-        <div class="code">User input
-  → CLI đọc FOUNDRY_PROJECT_ENDPOINT / FOUNDRY_MODEL
-  → build_agent()
-  → create_harness_agent(...)
-  → model decide
-  → tool get_current_time()
-  → console in kết quả</div>
-        <p style="margin-top:14px;">
-          Đó mới là "khung". Để thành agent cá nhân thật sự, cần đổi tool mẫu thành tool thật,
-          thêm memory dài hạn, và gắn với công việc thực tế của bạn.
-        </p>
+        <div class="list">
+          <div class="item">
+            <div class="badge done">✓</div>
+            <div>
+              <strong>Mandatory when repo knowledge is missing or stale</strong>
+              <p>V1 should not guess about current libraries, public docs, or outside facts when the repository cannot answer them.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="badge done">≠</div>
+            <div>
+              <strong>Source Comparison is the default</strong>
+              <p>Relevant sources should be compared, with preference for official or primary documentation and an explicit note when sources conflict.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="badge note">↺</div>
+            <div>
+              <strong>Search Provider is swappable</strong>
+              <p>The repository behavior should survive a backend change across Microsoft, OpenAI, Tavily, Brave, SerpAPI, or another provider.</p>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
 
+    <section class="band grid" style="margin-top:18px;">
+      <div class="section-head">
+        <h2>Current Local-Issue Backlog</h2>
+        <span>planned work tracked in <code>.codex/issues/</code></span>
+      </div>
+      <div class="issue-list">
+        <div class="issue">
+          <strong>0001 • Implement web research search provider</strong>
+          <span>Formalize external search behind a provider abstraction with source retrieval behavior.</span>
+        </div>
+        <div class="issue">
+          <strong>0002 • Implement memory surface writer</strong>
+          <span>Write durable learnings and errors into the repository-backed memory surface.</span>
+        </div>
+        <div class="issue">
+          <strong>0003 • Implement local issues backlog commands</strong>
+          <span>Work with the local markdown backlog as a first-class V1 surface.</span>
+        </div>
+        <div class="issue">
+          <strong>0004 • Implement autonomy level commands</strong>
+          <span>Expose and manage Edit, Deliver, and Auto mode behavior.</span>
+        </div>
+        <div class="issue">
+          <strong>0005 • Implement plan approval flow</strong>
+          <span>Require clear approval before executing large, ambiguous, or risky work.</span>
+        </div>
+        <div class="issue">
+          <strong>0006 • Implement completion report format</strong>
+          <span>Standardize what changed, what was verified, and what risk remains after work finishes.</span>
+        </div>
+        <div class="issue">
+          <strong>0007 • Implement secret configuration flow</strong>
+          <span>Handle local secret setup safely, with explicit approval before writing credentials.</span>
+        </div>
+        <div class="issue">
+          <strong>0008 • Implement verification run discovery</strong>
+          <span>Discover and report the checks that should run after repository edits.</span>
+        </div>
+        <div class="issue">
+          <strong>0009 • Implement CLI task intake classification</strong>
+          <span>Classify free-form task intake and ask follow-up questions only when needed.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="band grid" style="margin-top:18px;">
+      <div class="section-head">
+        <h2>V1 Completion Criteria</h2>
+        <span>the milestone is capability-complete, not marketing-complete</span>
+      </div>
+      <div class="criteria">
+        <div class="criterion">
+          <strong>CLI Work Surface</strong>
+          <p>The Primary User can give tasks, review outputs, and steer work from the CLI.</p>
+        </div>
+        <div class="criterion">
+          <strong>Web Research</strong>
+          <p>Fresh external research works through a replaceable provider with source comparison.</p>
+        </div>
+        <div class="criterion">
+          <strong>Repository Edit</strong>
+          <p>The copilot can inspect and change this repository, then run relevant verification.</p>
+        </div>
+        <div class="criterion">
+          <strong>Memory Surface</strong>
+          <p>Reusable learnings, errors, and confirmed preferences are written back into repository memory.</p>
+        </div>
+        <div class="criterion">
+          <strong>Backlog of Local Issues</strong>
+          <p>Implementation-ready work is tracked in markdown issues inside this repository.</p>
+        </div>
+      </div>
+    </section>
+
     <footer>
-      Trang này là bản mô tả trực quan của code hiện có trong workspace, không phải tài liệu chung chung.
+      Status Page updates are needed when scope, glossary, or major decisions change enough that this page would misrepresent the system. This page remains static so GitHub Pages can serve it directly from <code>index.html</code>.
     </footer>
   </div>
 </body>
