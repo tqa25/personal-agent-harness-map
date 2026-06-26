@@ -1,0 +1,33 @@
+[project]
+name = "test-web-control-agent-harness"
+version = "0.1.0"
+description = "A Python agent harness scaffold inspired by Microsoft Agent Framework."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "agent-framework>=1.9.0,<2.0.0",
+    "azure-identity>=1.17.0",
+    "pydantic>=2.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+]
+
+[project.scripts]
+agent-harness = "agent_harness.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_harness"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.uv]
+prerelease = "allow"

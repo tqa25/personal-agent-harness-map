@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent System Map</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --panel: #fffdf8;
+      --ink: #182230;
+      --muted: #5f6773;
+      --line: #d8d0c4;
+      --accent: #195e7a;
+      --accent-2: #7a4f20;
+      --accent-3: #2f7d32;
+      --warn: #9b4d00;
+      --shadow: 0 18px 50px rgba(27, 38, 51, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(25, 94, 122, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(122, 79, 32, 0.08), transparent 28%),
+        linear-gradient(180deg, #fbfaf7, var(--bg));
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    .hero {
+      padding: 28px 28px 18px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 253, 248, 0.8);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 10px 0 12px;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.05;
+      max-width: 15ch;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 82ch;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: 1.4fr 0.9fr;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: rgba(255, 253, 248, 0.95);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .card h2, .card h3 {
+      margin: 0 0 10px;
+      line-height: 1.15;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .flow {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .node {
+      padding: 16px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fffefa, #f7f4ed);
+      min-height: 110px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .node strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 15px;
+    }
+
+    .node small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 22px;
+      font-weight: 700;
+      transform: translateY(2px);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px 0;
+      border-top: 1px solid rgba(216, 208, 196, 0.55);
+    }
+
+    .item:first-child { border-top: 0; }
+
+    .status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .done { background: rgba(47, 125, 50, 0.14); color: var(--accent-3); }
+    .todo { background: rgba(155, 77, 0, 0.12); color: var(--warn); }
+
+    .mini-ill {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fbf7ef, #eef4f7);
+      border: 1px solid rgba(24, 34, 48, 0.08);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .code {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 14px;
+      background: #12202b;
+      color: #e7f1f6;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      line-height: 1.55;
+      overflow: auto;
+    }
+
+    footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 960px) {
+      .grid.two, .grid.three, .flow-row {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        transform: rotate(90deg);
+        min-height: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="kicker">Agent System Map</div>
+      <h1>Hệ thống agent hiện có, vẽ lại cho dễ hiểu</h1>
+      <p class="subtitle">
+        Trang này mô tả bản khung agent chúng ta vừa dựng: nó đã có lớp gọi model, harness,
+        console, tool mẫu, cấu hình môi trường, và test cơ bản. Nó chưa phải một agent cá nhân hoàn chỉnh,
+        vì còn thiếu mục tiêu riêng, dữ liệu riêng, tool thật, bộ nhớ dài hạn, cơ chế an toàn, và giao diện dùng hàng ngày.
+      </p>
+      <div class="legend">
+        <span class="pill">Python</span>
+        <span class="pill">Microsoft Agent Framework</span>
+        <span class="pill">Foundry chat client</span>
+        <span class="pill">Harness + tools + memory + planning</span>
+        <span class="pill">GitHub Pages</span>
+      </div>
+    </section>
+
+    <div class="grid two" style="margin-top:18px;">
+      <section class="card">
+        <div class="section-title">
+          <h2>Luồng chính hiện tại</h2>
+          <span>người dùng → CLI → harness → model</span>
+        </div>
+        <p>
+          Luồng này là xương sống của hệ thống. Người dùng gõ lệnh vào console, CLI đọc cấu hình,
+          tạo Foundry chat client, bọc nó vào harness agent, rồi agent gọi model và tool khi cần.
+        </p>
+
+        <div class="flow">
+          <div class="flow-row">
+            <div class="node">
+              <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="User typing">
+                <rect x="30" y="32" width="260" height="116" rx="18" fill="#fff" stroke="#b9c6d1"/>
+                <rect x="54" y="58" width="176" height="14" rx="7" fill="#cfe0ea"/>
+                <rect x="54" y="88" width="220" height="14" rx="7" fill="#cfe0ea"/>
+                <rect x="54" y="118" width="120" height="14" rx="7" fill="#9cc7d8"/>
+                <circle cx="260" cy="122" r="20" fill="#195e7a"/>
+                <path d="M252 122h16M260 114v16" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+              <strong>Người dùng</strong>
+              <small>Nhập câu hỏi, yêu cầu tra cứu, hoặc lệnh hệ thống.</small>
+            </div>
+            <div class="arrow">→</div>
+            <div class="node">
+              <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="CLI and config">
+                <rect x="26" y="28" width="268" height="124" rx="18" fill="#111827"/>
+                <rect x="42" y="44" width="236" height="12" rx="6" fill="#334155"/>
+                <rect x="42" y="76" width="118" height="12" rx="6" fill="#7a4f20"/>
+                <rect x="42" y="102" width="190" height="12" rx="6" fill="#195e7a"/>
+                <rect x="42" y="128" width="140" height="12" rx="6" fill="#2f7d32"/>
+              </svg>
+              <strong>CLI + config</strong>
+              <small>Đọc biến môi trường, kiểm tra endpoint và chọn chế độ chạy.</small>
+            </div>
+            <div class="arrow">→</div>
+            <div class="node">
+              <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Agent harness">
+                <rect x="64" y="38" width="192" height="104" rx="24" fill="#195e7a" opacity="0.14" stroke="#195e7a"/>
+                <circle cx="112" cy="90" r="20" fill="#195e7a"/>
+                <circle cx="160" cy="90" r="20" fill="#7a4f20"/>
+                <circle cx="208" cy="90" r="20" fill="#2f7d32"/>
+                <path d="M92 120h136" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
+              </svg>
+              <strong>Harness agent</strong>
+              <small>Gắn instruction, tool, memory, planning, todo, và web search.</small>
+            </div>
+            <div class="arrow">→</div>
+            <div class="node">
+              <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Model and tools">
+                <rect x="36" y="34" width="248" height="112" rx="18" fill="#fff" stroke="#b9c6d1"/>
+                <path d="M60 112h200" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
+                <path d="M96 76l26 26 34-42" fill="none" stroke="#2f7d32" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="236" cy="76" r="18" fill="#7a4f20"/>
+              </svg>
+              <strong>Model + tools</strong>
+              <small>Gọi model, tool mẫu, và nguồn web khi bài toán cần dữ liệu ngoài.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="section-title">
+          <h2>Cái đã có</h2>
+          <span>trạng thái hiện tại</span>
+        </div>
+        <div class="checklist">
+          <div class="item">
+            <div class="status done">✓</div>
+            <div>
+              <strong>Project Python chạy được</strong>
+              <p>Đã có `pyproject.toml`, lockfile, entrypoint, và test.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="status done">✓</div>
+            <div>
+              <strong>Foundry chat client</strong>
+              <p>Đã nối vào `agent_framework.foundry.FoundryChatClient`.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="status done">✓</div>
+            <div>
+              <strong>Harness + tool mẫu</strong>
+              <p>Có `create_harness_agent` và tool `get_current_time` để chứng minh luồng gọi hàm.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="status done">✓</div>
+            <div>
+              <strong>Console tối thiểu</strong>
+              <p>Có lệnh để xem mode, todo, xuất/nhập session.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="grid three">
+      <section class="card">
+        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: CLI">
+          <rect x="38" y="40" width="244" height="100" rx="18" fill="#111827"/>
+          <rect x="56" y="60" width="160" height="12" rx="6" fill="#7dd3fc"/>
+          <rect x="56" y="88" width="110" height="12" rx="6" fill="#f59e0b"/>
+          <rect x="56" y="114" width="190" height="12" rx="6" fill="#34d399"/>
+        </svg>
+        <h3>1. CLI</h3>
+        <p>Nhận lệnh, kiểm tra env, gọi console. Đây là cửa vào của hệ thống.</p>
+      </section>
+      <section class="card">
+        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: Harness">
+          <rect x="60" y="34" width="200" height="112" rx="22" fill="#195e7a" opacity="0.14" stroke="#195e7a"/>
+          <circle cx="110" cy="90" r="22" fill="#195e7a"/>
+          <circle cx="160" cy="90" r="22" fill="#7a4f20"/>
+          <circle cx="210" cy="90" r="22" fill="#2f7d32"/>
+        </svg>
+        <h3>2. Harness</h3>
+        <p>Bọc model bằng vòng lặp agent, gắn công cụ, memory, planning, todo.</p>
+      </section>
+      <section class="card">
+        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: Tools">
+          <rect x="42" y="38" width="236" height="104" rx="18" fill="#fff" stroke="#b9c6d1"/>
+          <path d="M78 90h164" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="110" cy="90" r="16" fill="#2f7d32"/>
+          <circle cx="170" cy="90" r="16" fill="#7a4f20"/>
+        </svg>
+        <h3>3. Tools</h3>
+        <p>Hàm mà model có thể gọi để lấy dữ liệu thật, không đoán bằng trí nhớ.</p>
+      </section>
+      <section class="card">
+        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: Memory">
+          <rect x="70" y="34" width="180" height="112" rx="20" fill="#fff7ed" stroke="#c58d51"/>
+          <path d="M100 70h120M100 92h90M100 114h105" stroke="#7a4f20" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+        <h3>4. Memory</h3>
+        <p>Nơi lưu sở thích, ngữ cảnh dài hạn, và các ghi chú bền vững giữa các phiên.</p>
+      </section>
+      <section class="card">
+        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: Planning">
+          <rect x="48" y="38" width="224" height="104" rx="18" fill="#eff6ff" stroke="#7da2d6"/>
+          <path d="M84 86h152" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
+          <path d="M84 110h98" stroke="#2f7d32" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+        <h3>5. Planning</h3>
+        <p>Chuyển yêu cầu mơ hồ thành kế hoạch, rồi mới thực thi từng bước.</p>
+      </section>
+      <section class="card">
+        <svg class="mini-ill" viewBox="0 0 320 180" role="img" aria-label="Module: GitHub Pages">
+          <rect x="58" y="34" width="204" height="112" rx="20" fill="#eef2ff" stroke="#9aa4d9"/>
+          <path d="M108 118l52-60 52 60" fill="none" stroke="#7a4f20" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M112 118h96" stroke="#195e7a" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+        <h3>6. GitHub Pages</h3>
+        <p>Xuất trang mô tả hệ thống để xem online như tài liệu sống.</p>
+      </section>
+    </div>
+
+    <div class="grid two">
+      <section class="card">
+        <div class="section-title">
+          <h2>Những gì còn thiếu để thành agent cá nhân hoàn chỉnh</h2>
+          <span>đây là phần quan trọng</span>
+        </div>
+        <div class="checklist">
+          <div class="item">
+            <div class="status todo">!</div>
+            <div>
+              <strong>Mục tiêu cá nhân rõ ràng</strong>
+              <p>Agent phải biết nó phục vụ việc gì: học tập, công việc, tài chính, nghiên cứu, hay quản lý đời sống.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="status todo">!</div>
+            <div>
+              <strong>Tool thật</strong>
+              <p>Kết nối Gmail, Calendar, Slack, Drive, Notion, database, file system, hoặc API riêng của bạn.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="status todo">!</div>
+            <div>
+              <strong>Memory dài hạn có cấu trúc</strong>
+              <p>Không chỉ lưu session; cần quy tắc ghi nhớ, quên, và cập nhật những gì đúng là cần nhớ lâu.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="status todo">!</div>
+            <div>
+              <strong>Guardrails và phê duyệt</strong>
+              <p>Hành động nguy hiểm phải có xác nhận, logging, và quyền hạn rõ ràng.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="status todo">!</div>
+            <div>
+              <strong>UI dùng hằng ngày</strong>
+              <p>Có thể là web app, desktop, mobile, hoặc integration vào app bạn dùng thường xuyên.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="status todo">!</div>
+            <div>
+              <strong>Kiểm thử hành vi</strong>
+              <p>Cần test cho prompt, tool call, memory, session restore, và lỗi ngoài đời thực.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-title">
+          <h2>Ví dụ ngắn</h2>
+          <span>hệ thống hiện tại đang làm gì</span>
+        </div>
+        <p>
+          Khi bạn nhập một yêu cầu, ví dụ "xem giờ hiện tại", agent sẽ đi qua khung này:
+        </p>
+        <div class="code">User input
+  → CLI đọc FOUNDRY_PROJECT_ENDPOINT / FOUNDRY_MODEL
+  → build_agent()
+  → create_harness_agent(...)
+  → model decide
+  → tool get_current_time()
+  → console in kết quả</div>
+        <p style="margin-top:14px;">
+          Đó mới là "khung". Để thành agent cá nhân thật sự, cần đổi tool mẫu thành tool thật,
+          thêm memory dài hạn, và gắn với công việc thực tế của bạn.
+        </p>
+      </section>
+    </div>
+
+    <footer>
+      Trang này là bản mô tả trực quan của code hiện có trong workspace, không phải tài liệu chung chung.
+    </footer>
+  </div>
+</body>
+</html>
