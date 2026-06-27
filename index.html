@@ -3,22 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trang Thai Personal Copilot V1</title>
+  <title>Personal Copilot V1 - Giai Thich He Thong</title>
   <style>
     :root {
-      --bg: #f4f6f8;
+      --bg: #f5f7fa;
       --panel: #ffffff;
-      --panel-alt: #f8fafc;
-      --ink: #16202b;
-      --muted: #586271;
-      --line: #d9e0e7;
-      --accent: #166534;
-      --accent-2: #0f4c81;
-      --accent-3: #915f14;
-      --warn: #b45309;
-      --danger: #b42318;
-      --shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
-      --radius: 18px;
+      --soft: #f8fafc;
+      --ink: #172033;
+      --muted: #5b6678;
+      --line: #d8e0ea;
+      --blue: #155e75;
+      --green: #166534;
+      --amber: #92400e;
+      --red: #b42318;
+      --shadow: 0 16px 42px rgba(15, 23, 42, 0.08);
     }
 
     * { box-sizing: border-box; }
@@ -27,79 +25,89 @@
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(15, 76, 129, 0.08), transparent 28%),
-        radial-gradient(circle at top right, rgba(22, 101, 52, 0.08), transparent 28%),
-        linear-gradient(180deg, #fbfcfd, var(--bg));
+      background: linear-gradient(180deg, #fbfcfe, var(--bg));
     }
 
-    a {
-      color: inherit;
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+      color: #0f4c81;
+      background: #eef5fb;
+      border: 1px solid #d5e5f2;
+      border-radius: 6px;
+      padding: 1px 5px;
     }
 
     .wrap {
-      max-width: 1180px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 28px 18px 56px;
     }
 
     .hero,
+    .band,
     .card,
-    .band {
-      background: rgba(255, 255, 255, 0.94);
+    .node,
+    .table-wrap {
+      background: var(--panel);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
     }
 
     .hero {
-      border-radius: 28px;
-      padding: 28px;
+      border-radius: 22px;
+      padding: 30px;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent-2);
+      color: var(--blue);
       font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
+      font-weight: 800;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1 {
-      margin: 12px 0 12px;
-      font-size: clamp(32px, 5vw, 54px);
+      margin: 10px 0 12px;
+      font-size: clamp(34px, 5vw, 58px);
       line-height: 1.02;
-      max-width: 12ch;
+      max-width: 13ch;
     }
 
-    .subtitle {
-      max-width: 76ch;
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .pill {
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(248, 250, 252, 0.95);
-      color: var(--muted);
-      font-size: 12px;
+    h2,
+    h3 {
+      margin: 0 0 12px;
       line-height: 1.2;
     }
 
-    .hero-metrics {
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .subtitle {
+      max-width: 84ch;
+      font-size: 16px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+
+    .metrics {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
@@ -107,11 +115,11 @@
     }
 
     .metric {
-      padding: 16px;
-      border-radius: 16px;
-      background: var(--panel-alt);
       border: 1px solid var(--line);
-      min-height: 116px;
+      border-radius: 12px;
+      background: var(--soft);
+      padding: 16px;
+      min-height: 112px;
     }
 
     .metric strong {
@@ -122,10 +130,9 @@
     }
 
     .metric span {
-      display: block;
-      font-size: 13px;
       color: var(--muted);
-      line-height: 1.5;
+      font-size: 13px;
+      line-height: 1.45;
     }
 
     .grid {
@@ -134,40 +141,21 @@
       margin-top: 18px;
     }
 
-    .grid.two {
-      grid-template-columns: 1.1fr 0.9fr;
-    }
+    .two { grid-template-columns: 1fr 1fr; }
+    .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-    .grid.three {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .card,
-    .band {
-      border-radius: var(--radius);
+    .band,
+    .card {
+      border-radius: 16px;
       padding: 22px;
-    }
-
-    .card h2,
-    .card h3,
-    .band h2 {
-      margin: 0 0 12px;
-      line-height: 1.15;
-    }
-
-    .card p,
-    .band p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.65;
     }
 
     .section-head {
       display: flex;
-      justify-content: space-between;
       align-items: baseline;
-      gap: 12px;
-      margin-bottom: 12px;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
     }
 
     .section-head span {
@@ -176,24 +164,14 @@
       text-align: right;
     }
 
-    .stack {
-      display: grid;
-      gap: 12px;
-    }
-
     .list {
       display: grid;
       gap: 10px;
-      margin-top: 12px;
     }
 
     .item {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 12px 0;
-      border-top: 1px solid rgba(217, 224, 231, 0.8);
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
     }
 
     .item:first-child {
@@ -201,218 +179,136 @@
       padding-top: 0;
     }
 
-    .badge {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
+    .item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 9px;
       font-size: 12px;
-      font-weight: 800;
-      margin-top: 2px;
-    }
-
-    .done {
-      color: var(--accent);
-      background: rgba(22, 101, 52, 0.12);
-    }
-
-    .plan {
-      color: var(--warn);
-      background: rgba(180, 83, 9, 0.14);
-    }
-
-    .note {
-      color: var(--accent-2);
-      background: rgba(15, 76, 129, 0.12);
-    }
-
-    .surface {
-      padding: 16px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, #ffffff, #f8fafc);
-    }
-
-    .surface strong {
-      display: block;
+      font-weight: 700;
       margin-bottom: 8px;
-      font-size: 15px;
     }
 
-    .surface p {
-      font-size: 14px;
-    }
+    .ok { color: var(--green); background: #ecfdf3; border: 1px solid #bbf7d0; }
+    .warn { color: var(--amber); background: #fffbeb; border: 1px solid #fde68a; }
+    .risk { color: var(--red); background: #fff1f2; border: 1px solid #fecdd3; }
 
-    .matrix {
+    .node-flow {
       display: grid;
-      gap: 12px;
-      margin-top: 12px;
+      grid-template-columns: repeat(4, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
     }
 
-    .row {
-      display: grid;
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .cell {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      background: var(--panel-alt);
-    }
-
-    .cell h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-    }
-
-    .cell ul {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .columns {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .issue-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .issue {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px 15px;
-      background: linear-gradient(180deg, #ffffff, #fbfcfd);
-    }
-
-    .issue strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    .issue span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .flow-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-      align-items: stretch;
-    }
-
-    .flow-node {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      background: linear-gradient(180deg, #ffffff, #f8fafc);
-      min-height: 150px;
+    .node {
+      border-radius: 12px;
+      padding: 14px;
+      min-height: 164px;
       position: relative;
     }
 
-    .flow-node strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 15px;
+    .node::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -16px;
+      transform: translateY(-50%);
+      color: var(--blue);
+      font-weight: 900;
+      font-size: 20px;
     }
 
-    .flow-node p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.55;
+    .node:nth-child(4n)::after,
+    .node:last-child::after {
+      content: "";
     }
 
-    .flow-arrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-2);
-      font-size: 22px;
+    .node .tag {
+      display: inline-block;
+      color: var(--blue);
+      background: #eef5fb;
+      border: 1px solid #d5e5f2;
+      border-radius: 999px;
+      font-size: 11px;
       font-weight: 800;
-    }
-
-    .flow-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 14px;
-      font-size: 14px;
-    }
-
-    .flow-table th,
-    .flow-table td {
-      text-align: left;
-      vertical-align: top;
-      padding: 12px 10px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .flow-table th {
-      color: var(--ink);
-      font-size: 13px;
+      padding: 4px 8px;
+      margin-bottom: 9px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      background: #fbfcfd;
     }
 
-    .criteria {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .criterion {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      background: linear-gradient(180deg, #ffffff, #f8fafc);
-      min-height: 136px;
-    }
-
-    .criterion strong {
+    .node strong {
       display: block;
       margin-bottom: 8px;
       font-size: 15px;
     }
 
-    .criterion p {
+    .node p {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .table-wrap {
+      border-radius: 14px;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 860px;
       font-size: 14px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      border-top: 1px solid var(--line);
+      padding: 12px;
+      line-height: 1.55;
+    }
+
+    th {
+      border-top: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    .callout {
+      border-left: 4px solid var(--amber);
+      background: #fffbeb;
+      padding: 14px 16px;
+      border-radius: 10px;
+      color: #6b4e16;
+      line-height: 1.6;
     }
 
     footer {
-      margin-top: 18px;
+      margin-top: 20px;
+      text-align: center;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.6;
-      text-align: center;
     }
 
     @media (max-width: 980px) {
-      .hero-metrics,
-      .grid.two,
-      .grid.three,
-      .row,
-      .columns,
-      .criteria,
-      .flow-grid {
+      .metrics,
+      .two,
+      .three,
+      .node-flow {
         grid-template-columns: 1fr;
       }
 
@@ -422,365 +318,513 @@
 
       .section-head span {
         display: block;
-        margin-top: 6px;
         text-align: left;
+        margin-top: 6px;
       }
 
-      .flow-arrow {
-        transform: rotate(90deg);
-        min-height: 18px;
+      .node::after {
+        content: "↓";
+        top: auto;
+        right: 18px;
+        bottom: -19px;
+        transform: none;
+      }
+
+      .node:nth-child(4n)::after {
+        content: "↓";
+      }
+
+      .node:last-child::after {
+        content: "";
       }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <main class="wrap">
     <section class="hero">
-      <div class="eyebrow">Trang Thai • Personal Copilot V1</div>
-      <h1>Trang thai he thong agent trong repo hien tai.</h1>
+      <div class="eyebrow">Personal Copilot V1 - tài liệu vận hành</div>
+      <h1>Hệ thống agent hiện tại đang làm gì?</h1>
       <p class="subtitle">
-        Repo nay hien mo ta mot <strong>Personal Copilot</strong> voi pham vi V1 ro rang:
-        lam viec ky thuat va quan ly tri thuc ca nhan ben trong repo hien tai. CLI la noi van hanh
-        chinh. Trang tinh nay chi dung de cho ban nhin scope, cac capability da co, cac quyet dinh
-        kien truc chinh, va backlog con lai.
+        Repo này xây một <strong>Personal Copilot</strong>: trợ lý AI chạy qua CLI, đọc và làm việc trong repo hiện tại,
+        có thể phân loại yêu cầu, hỏi duyệt kế hoạch khi rủi ro, gọi model qua OpenRouter, ghi nhớ tri thức vào file,
+        tạo backlog local, chạy kiểm tra sau khi sửa code, rồi trả về Completion Report.
       </p>
-      <div class="pill-row">
-        <span class="pill">V1 chi lam viec voi repo hien tai</span>
-        <span class="pill">Web Research phai co Source Comparison</span>
-        <span class="pill">Search Provider co the thay the</span>
-        <span class="pill">Memory Surface nam trong <code>.learnings/</code></span>
-        <span class="pill">Backlog nam trong <code>.codex/issues/</code></span>
-        <span class="pill">Trang tinh tuong thich GitHub Pages</span>
+      <div class="pills">
+        <span class="pill">Runtime: Python CLI</span>
+        <span class="pill">Model auth: <code>OPENROUTER_API_KEY</code></span>
+        <span class="pill">Repo scope: repo hiện tại</span>
+        <span class="pill">Memory: <code>.learnings/</code></span>
+        <span class="pill">Backlog: <code>.codex/issues/</code></span>
+        <span class="pill">Verification: <code>uv run --extra dev pytest</code> khi phù hợp</span>
       </div>
-      <div class="hero-metrics">
+      <div class="metrics">
+        <div class="metric">
+          <strong>70</strong>
+          <span>test tự động đang pass sau khi sửa lỗi phân loại chat thường và verification bằng uv.</span>
+        </div>
         <div class="metric">
           <strong>1</strong>
-          <span>repo hien tai la bien van hanh duy nhat cua V1 cho sua code, verify, memory write, va local issue</span>
+          <span>repo là phạm vi làm việc của V1. Multi-repo chưa nằm trong bản hiện tại.</span>
         </div>
         <div class="metric">
           <strong>3</strong>
-          <span>muc tu dong hoa da duoc chot: Edit Mode, Deliver Mode, va Auto Mode</span>
+          <span>mức tự động hóa: edit, deliver, auto. Mặc định là edit để giảm rủi ro.</span>
         </div>
         <div class="metric">
           <strong>10</strong>
-          <span>local issue hien theo doi backlog implementation cua V1, bao gom ca issue cap nhat trang thai</span>
-        </div>
-        <div class="metric">
-          <strong>5</strong>
-          <span>tieu chi bang ngon ngu don gian quy dinh khi nao V1 duoc coi la hoan thanh that su</span>
+          <span>issue local mô tả backlog năng lực V1 đã được tạo trong <code>.codex/issues/</code>.</span>
         </div>
       </div>
     </section>
 
-    <div class="grid two">
-      <section class="card">
-        <div class="section-head">
-          <h2>Pham Vi V1</h2>
-          <span>he thong nay dung de lam gi o thoi diem hien tai</span>
-        </div>
-        <div class="stack">
-          <div class="surface">
-            <strong>Use case chinh</strong>
-            <p>Personal Copilot ho tro mot Primary User doc hieu, sua, review, document, va research cong viec phan mem, dong thoi luu lai tri thuc tai su dung duoc trong repo nay.</p>
-          </div>
-          <div class="surface">
-            <strong>Chi repo hien tai</strong>
-            <p>V1 chua mo rong sang nhieu repo, cloud drive, inbox, hay he thong quan ly doi song. Tri thuc trong repo nay la local source of truth.</p>
-          </div>
-          <div class="surface">
-            <strong>Work Surface</strong>
-            <p>CLI la noi dien ra task intake, planning, verification, va completion report. Trang nay chi de quan sat va giai thich, khong phai giao dien thao tac chinh.</p>
-          </div>
-        </div>
-      </section>
-
-      <aside class="card">
-        <div class="section-head">
-          <h2>Quyet Dinh ADR</h2>
-          <span>dien giai bang ngon ngu de doc</span>
-        </div>
-        <div class="list">
-          <div class="item">
-            <div class="badge note">1</div>
-            <div>
-              <strong>Search backend co the thay</strong>
-              <p>Web research la bat buoc cho du lieu moi, nhung search backend khong bi khoa cung. V1 co the mac dinh dung Microsoft hosted search khi co san, trong khi hanh vi cua copilot van doc lap voi provider.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="badge note">2</div>
-            <div>
-              <strong>Bat dau voi mot repo</strong>
-              <p>Multi-repo duoc hoan lai den sau khi core loop da on dinh. Cach nay giu cho repository edit, memory routing, va verification don gian hon trong V1.</p>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </div>
-
-    <section class="band grid" style="margin-top:18px;">
+    <section class="band grid">
       <div class="section-head">
-        <h2>Flow Van Hanh</h2>
-        <span>mo ta nhanh kieu node flow de nhin nhu mot workflow engine</span>
+        <h2>Trạng Thái Thực Tế</h2>
+        <span>đọc từ code và log hiện tại</span>
       </div>
-      <div class="flow-grid">
-        <div class="flow-node">
-          <strong>1. Task Intake</strong>
-          <p>Ban nhap task tu do trong CLI. He thong dung <code>intake.py</code> de phan loai task thanh technical work, web research, memory work, local issue, secret config, hoac status page work.</p>
+      <div class="grid three" style="margin-top:0;">
+        <div class="card">
+          <span class="status ok">Đã chạy được</span>
+          <h3>OpenRouter runtime</h3>
+          <p><code>agent.py</code> dùng <code>OpenAIChatClient</code> với <code>OPENROUTER_API_KEY</code> và <code>https://openrouter.ai/api/v1</code>. Log cho thấy model OpenRouter đã trả lời câu chào.</p>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node">
-          <strong>2. Gate & Plan</strong>
-          <p><code>autonomy.py</code> va <code>planning.py</code> quyet dinh task co can nang autonomy, plan approval, hay lam ngay. Task lon, mo ho, rui ro se dung o buoc approve.</p>
+        <div class="card">
+          <span class="status ok">Đã sửa</span>
+          <h3>Chat thường không chạy test</h3>
+          <p>Trước đó câu <code>xin chao</code> bị coi là technical work và tự chạy pytest. Hiện <code>intake.py</code> đã có loại <code>conversation</code> nên chat thường không kích hoạt verification.</p>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node">
-          <strong>3. Execute</strong>
-          <p><code>agent.py</code> va harness goi model, tool, web research, backlog, hoac memory writer tuy theo task. Neu task la local issue hoac memory, co the xu ly ma khong can chat luan dai.</p>
-        </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node">
-          <strong>4. Verify</strong>
-          <p><code>verification.py</code> tim va chay check phu hop sau repository edit. Neu repo co pytest, script test, hoac package test command, ket qua se duoc dua vao report.</p>
-        </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node">
-          <strong>5. Report & Memory</strong>
-          <p><code>reports.py</code> tao Completion Report. <code>memory_surface.py</code> ghi learnings, errors, preferences da xac nhan, va feature requests vao <code>.learnings/</code>.</p>
+        <div class="card">
+          <span class="status warn">Cần kiểm chứng thêm</span>
+          <h3>Web research</h3>
+          <p><code>search.py</code> có abstraction Search Provider, nhưng log chưa chứng minh research web end-to-end qua OpenRouter. Dòng “Microsoft hosted web search” cần được chỉnh để không gây hiểu nhầm.</p>
         </div>
       </div>
-      <table class="flow-table">
-        <thead>
-          <tr>
-            <th>Node</th>
-            <th>Input</th>
-            <th>Output</th>
-            <th>Module chinh</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Task Intake</td>
-            <td>Cau lenh tu do tu nguoi dung</td>
-            <td>Task classification + route</td>
-            <td><code>intake.py</code>, <code>console.py</code></td>
-          </tr>
-          <tr>
-            <td>Gate & Plan</td>
-            <td>Task classification + autonomy hien tai</td>
-            <td>Cho lam ngay hoac tao plan approval</td>
-            <td><code>autonomy.py</code>, <code>planning.py</code></td>
-          </tr>
-          <tr>
-            <td>Execute</td>
-            <td>Task da duoc route</td>
-            <td>Agent response, memory write, local issue, hoac repo edit</td>
-            <td><code>agent.py</code>, <code>backlog.py</code>, <code>memory_surface.py</code></td>
-          </tr>
-          <tr>
-            <td>Verify</td>
-            <td>Task co thay doi repo</td>
-            <td>Verification summary</td>
-            <td><code>verification.py</code></td>
-          </tr>
-          <tr>
-            <td>Completion</td>
-            <td>Ket qua task + verification + risk</td>
-            <td>Completion Report hien thi trong CLI</td>
-            <td><code>reports.py</code>, <code>console.py</code></td>
-          </tr>
-        </tbody>
-      </table>
     </section>
 
-    <section class="band grid" style="margin-top:18px;">
+    <section class="band grid">
       <div class="section-head">
-        <h2>Nhung Be Mat Da Co Trong Repo</h2>
-        <span>dua tren code va tai lieu hien tai</span>
+        <h2>Node Flow Vận Hành</h2>
+        <span>nhìn như workflow n8n: mỗi node nhận input, xử lý, trả output</span>
       </div>
-      <div class="matrix">
-        <div class="row">
-          <div class="cell">
-            <h3>Runtime va control surfaces</h3>
-            <ul>
-              <li><code>src/agent_harness/cli.py</code> va <code>console.py</code> tao CLI work surface.</li>
-              <li><code>agent.py</code>, <code>instructions.py</code>, va <code>tools.py</code> dinh nghia harness va tang tool.</li>
-              <li><code>config.py</code> va <code>__main__.py</code> cung cap entry va wiring cau hinh.</li>
-            </ul>
-          </div>
-          <div class="cell">
-            <h3>Cac module capability da co spec ho tro</h3>
-            <ul>
-              <li><code>search.py</code> dai dien cho abstraction search provider cua web research.</li>
-              <li><code>memory_surface.py</code> dai dien cho memory surface backing bang repo.</li>
-              <li><code>backlog.py</code>, <code>autonomy.py</code>, <code>planning.py</code>, <code>reports.py</code>, <code>secrets.py</code>, <code>verification.py</code>, va <code>intake.py</code> map truc tiep vao vocabulary cua V1.</li>
-            </ul>
-          </div>
+      <div class="node-flow">
+        <div class="node">
+          <span class="tag">Trigger</span>
+          <strong>1. Người dùng nhập lệnh</strong>
+          <p>CLI trong <code>console.py</code> nhận text tự do hoặc command bắt đầu bằng <code>/</code>, ví dụ <code>/autonomy</code>, <code>/issues</code>, <code>/approve</code>.</p>
+        </div>
+        <div class="node">
+          <span class="tag">Router</span>
+          <strong>2. Phân loại task</strong>
+          <p><code>intake.py</code> phân loại thành conversation, technical work, web research, memory work, local issue, secret config, hoặc status page work.</p>
+        </div>
+        <div class="node">
+          <span class="tag">Guard</span>
+          <strong>3. Kiểm tra quyền và rủi ro</strong>
+          <p><code>autonomy.py</code> giữ mức quyền hiện tại. <code>planning.py</code> quyết định task có cần plan approval trước khi làm không.</p>
+        </div>
+        <div class="node">
+          <span class="tag">Decision</span>
+          <strong>4. Chờ duyệt nếu cần</strong>
+          <p>Task lớn, mơ hồ, hoặc có delivery action như commit/push sẽ dừng lại. Người dùng dùng <code>/approve</code> hoặc <code>/reject</code>.</p>
+        </div>
+        <div class="node">
+          <span class="tag">Agent</span>
+          <strong>5. Gọi model</strong>
+          <p><code>agent.py</code> build runtime, nối OpenRouter client, instructions, tools và session của Agent Framework.</p>
+        </div>
+        <div class="node">
+          <span class="tag">Tools</span>
+          <strong>6. Chạy capability nội bộ</strong>
+          <p>Tùy route, app có thể tạo issue bằng <code>backlog.py</code>, ghi memory bằng <code>memory_surface.py</code>, hoặc xử lý command trong <code>console.py</code>.</p>
+        </div>
+        <div class="node">
+          <span class="tag">Check</span>
+          <strong>7. Verification</strong>
+          <p>Nếu là technical work, <code>verification.py</code> tìm test/check phù hợp. Với repo này, nó ưu tiên <code>uv run --extra dev pytest</code>.</p>
+        </div>
+        <div class="node">
+          <span class="tag">Output</span>
+          <strong>8. Completion Report</strong>
+          <p><code>reports.py</code> gom summary, file thay đổi, verification, risk, memory write và delivery action để in kết quả cuối trong CLI.</p>
         </div>
       </div>
-      <div class="columns">
-        <div class="cell">
+    </section>
+
+    <section class="band grid">
+      <div class="section-head">
+        <h2>Bảng Flow Chi Tiết</h2>
+        <span>input, output và file chịu trách nhiệm</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Node</th>
+              <th>Input</th>
+              <th>Xử lý</th>
+              <th>Output</th>
+              <th>File chính</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CLI Entry</td>
+              <td>Lệnh terminal <code>uv run agent-harness</code></td>
+              <td>Đọc config, kiểm tra secret, khởi động console.</td>
+              <td>Phiên CLI tương tác.</td>
+              <td><code>cli.py</code>, <code>config.py</code></td>
+            </tr>
+            <tr>
+              <td>Config</td>
+              <td>Environment variables như <code>OPENROUTER_API_KEY</code>, <code>OPENROUTER_MODEL</code></td>
+              <td>Chuẩn hóa cấu hình runtime, repo root, search provider, autonomy mặc định.</td>
+              <td><code>HarnessConfig</code>.</td>
+              <td><code>config.py</code></td>
+            </tr>
+            <tr>
+              <td>Runtime Build</td>
+              <td><code>HarnessConfig</code></td>
+              <td>Tạo agent, memory surface, autonomy session và search provider diagnostics.</td>
+              <td><code>AgentRuntime</code>.</td>
+              <td><code>agent.py</code></td>
+            </tr>
+            <tr>
+              <td>Task Intake</td>
+              <td>Text từ người dùng</td>
+              <td>Dò keyword và route task. Chat thường là <code>conversation</code>, không chạy test.</td>
+              <td><code>TaskClassification</code>.</td>
+              <td><code>intake.py</code></td>
+            </tr>
+            <tr>
+              <td>Plan Approval</td>
+              <td>Task + autonomy level</td>
+              <td>Chặn task rủi ro để người dùng duyệt plan trước.</td>
+              <td>Plan request hoặc cho phép chạy tiếp.</td>
+              <td><code>planning.py</code>, <code>autonomy.py</code></td>
+            </tr>
+            <tr>
+              <td>Agent Turn</td>
+              <td>Task đã được phép chạy</td>
+              <td>Gọi model qua OpenRouter-compatible client và Agent Framework.</td>
+              <td>Response text hoặc stream update.</td>
+              <td><code>agent.py</code>, <code>console.py</code></td>
+            </tr>
+            <tr>
+              <td>Memory Write</td>
+              <td>Learning, error, preference, feature request</td>
+              <td>Ghi vào đúng file trong <code>.learnings/</code>, preference cần xác nhận.</td>
+              <td>Markdown memory entry.</td>
+              <td><code>memory_surface.py</code></td>
+            </tr>
+            <tr>
+              <td>Backlog</td>
+              <td>Issue title/body hoặc command <code>/issues</code></td>
+              <td>Tạo, list, show, close, complete local issue.</td>
+              <td>File markdown trong <code>.codex/issues/</code>.</td>
+              <td><code>backlog.py</code></td>
+            </tr>
+            <tr>
+              <td>Verification</td>
+              <td>Repo root và loại task</td>
+              <td>Tìm command test. Với repo có <code>uv.lock</code>, dùng <code>uv run --extra dev pytest</code>.</td>
+              <td>Pass/fail/not run.</td>
+              <td><code>verification.py</code></td>
+            </tr>
+            <tr>
+              <td>Report</td>
+              <td>Summary, changed files, verification, risk</td>
+              <td>Render báo cáo cuối task.</td>
+              <td>Completion Report trong CLI.</td>
+              <td><code>reports.py</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="band grid">
+      <div class="section-head">
+        <h2>Tính Năng Hiện Có</h2>
+        <span>những capability đã có code hoặc wiring runtime</span>
+      </div>
+      <div class="grid three" style="margin-top:0;">
+        <div class="card">
+          <h3>1. Chat qua CLI</h3>
+          <p>Người dùng chạy <code>agent-harness</code>, nhập câu hỏi hoặc task. CLI giữ session và in Completion Report sau mỗi task thường.</p>
+        </div>
+        <div class="card">
+          <h3>2. OpenRouter model auth</h3>
+          <p>App dùng <code>OPENROUTER_API_KEY</code>. <code>OPENROUTER_MODEL</code> mặc định là <code>~openai/gpt-latest</code> nếu không cấu hình khác.</p>
+        </div>
+        <div class="card">
+          <h3>3. Task classification</h3>
+          <p>Yêu cầu được phân loại để chọn flow đúng. Ví dụ: sửa test là technical work; nhớ preference là memory work; tạo backlog là local issue work.</p>
+        </div>
+        <div class="card">
+          <h3>4. Autonomy modes</h3>
+          <p><code>/autonomy edit</code>, <code>/autonomy deliver</code>, <code>/autonomy auto</code> kiểm soát mức agent được phép làm. V1 mặc định ở edit.</p>
+        </div>
+        <div class="card">
+          <h3>5. Plan approval</h3>
+          <p>Task có commit, push, deploy hoặc rủi ro cao sẽ yêu cầu duyệt. Người dùng xác nhận bằng <code>/approve</code> hoặc từ chối bằng <code>/reject</code>.</p>
+        </div>
+        <div class="card">
+          <h3>6. Memory surface</h3>
+          <p>Tri thức tái sử dụng được ghi vào <code>.learnings/LEARNINGS.md</code>, lỗi vào <code>ERRORS.md</code>, yêu cầu tính năng vào <code>FEATURE_REQUESTS.md</code>.</p>
+        </div>
+        <div class="card">
+          <h3>7. Local issues</h3>
+          <p>Backlog nằm trong <code>.codex/issues/*.md</code>. CLI hỗ trợ tạo, list, xem, đóng hoặc đánh dấu hoàn thành issue local.</p>
+        </div>
+        <div class="card">
+          <h3>8. Verification discovery</h3>
+          <p>Sau technical work, app tự tìm command test/check. Với repo này, command đúng là <code>uv run --extra dev pytest</code>.</p>
+        </div>
+        <div class="card">
+          <h3>9. Session import/export</h3>
+          <p><code>/session-export</code> và <code>/session-import</code> lưu/khôi phục trạng thái console và session agent.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band grid">
+      <div class="section-head">
+        <h2>Nhiệm Vụ Từng File</h2>
+        <span>đọc bảng này để biết sửa gì ở đâu</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>File / thư mục</th>
+              <th>Nhiệm vụ</th>
+              <th>Khi nào cần mở file này?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>src/agent_harness/cli.py</code></td>
+              <td>Entry point command <code>agent-harness</code>, xử lý <code>--check-config</code>, gọi console.</td>
+              <td>Khi đổi cách khởi động app, validate config, hoặc in thông tin môi trường.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/config.py</code></td>
+              <td>Định nghĩa <code>HarnessConfig</code>, đọc env như OpenRouter model, base URL, repo root, search provider.</td>
+              <td>Khi thêm biến môi trường hoặc đổi default runtime.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/agent.py</code></td>
+              <td>Build agent runtime, nối OpenRouter client với Agent Framework, memory, autonomy và search diagnostics.</td>
+              <td>Khi đổi provider model, cách tạo agent, hoặc wiring runtime.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/console.py</code></td>
+              <td>Vòng lặp CLI, xử lý command slash, route task, gọi agent, export/import session.</td>
+              <td>Khi thay đổi UX CLI hoặc thêm command mới.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/intake.py</code></td>
+              <td>Phân loại yêu cầu người dùng thành các loại task.</td>
+              <td>Khi task bị route sai hoặc muốn thêm task type mới.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/autonomy.py</code></td>
+              <td>Quản lý mức quyền <code>edit</code>, <code>deliver</code>, <code>auto</code>.</td>
+              <td>Khi thay đổi quy tắc agent được phép làm gì.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/planning.py</code></td>
+              <td>Tạo và quản lý plan approval trước task rủi ro.</td>
+              <td>Khi muốn agent hỏi duyệt nhiều hơn hoặc ít hơn.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/search.py</code></td>
+              <td>Abstraction cho web research provider và so sánh nguồn.</td>
+              <td>Khi nối web search thật hoặc thay provider.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/memory_surface.py</code></td>
+              <td>Ghi learning, error, feature request, working preference vào <code>.learnings/</code>.</td>
+              <td>Khi đổi cấu trúc memory hoặc policy ghi nhớ.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/backlog.py</code></td>
+              <td>Quản lý local issue markdown trong <code>.codex/issues/</code>.</td>
+              <td>Khi thay đổi backlog format hoặc command issue.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/secrets.py</code></td>
+              <td>Đọc secret từ env, ghi <code>.env.local</code> khi được duyệt, redact secret trong output.</td>
+              <td>Khi thay đổi cách cấu hình API key hoặc bảo vệ secret.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/verification.py</code></td>
+              <td>Khám phá và chạy test/check sau khi task sửa repo.</td>
+              <td>Khi test command sai, thiếu dev dependency, hoặc muốn thêm lint/typecheck.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/reports.py</code></td>
+              <td>Render Completion Report cuối task.</td>
+              <td>Khi muốn đổi format báo cáo kết quả.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/instructions.py</code></td>
+              <td>System instructions cho agent.</td>
+              <td>Khi muốn đổi hành vi mặc định của copilot.</td>
+            </tr>
+            <tr>
+              <td><code>src/agent_harness/tools.py</code></td>
+              <td>Custom tools expose cho model, hiện có tool mẫu.</td>
+              <td>Khi thêm tool nội bộ mới cho agent gọi.</td>
+            </tr>
+            <tr>
+              <td><code>tests/</code></td>
+              <td>Test unit và integration cho từng module capability.</td>
+              <td>Khi sửa logic. Đây là nơi bảo vệ regression.</td>
+            </tr>
+            <tr>
+              <td><code>docs/adr/</code></td>
+              <td>Architecture Decision Records: ghi lại quyết định kiến trúc.</td>
+              <td>Khi có quyết định lớn như đổi provider hoặc đổi phạm vi repo.</td>
+            </tr>
+            <tr>
+              <td><code>CONTEXT.md</code></td>
+              <td>Glossary và domain language của hệ thống.</td>
+              <td>Khi cần hiểu thuật ngữ hoặc cập nhật quyết định product-level.</td>
+            </tr>
+            <tr>
+              <td><code>.learnings/</code></td>
+              <td>Memory surface: learning, error, feature request.</td>
+              <td>Khi muốn xem agent đã ghi nhớ gì.</td>
+            </tr>
+            <tr>
+              <td><code>.codex/issues/</code></td>
+              <td>Backlog local theo từng issue markdown.</td>
+              <td>Khi muốn xem việc còn lại hoặc giao task implementation.</td>
+            </tr>
+            <tr>
+              <td><code>index.html</code></td>
+              <td>Trang giải thích hệ thống được publish qua GitHub Pages.</td>
+              <td>Khi muốn cập nhật tài liệu trực quan cho người đọc.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="band grid">
+      <div class="section-head">
+        <h2>Giải Thích Thuật Ngữ</h2>
+        <span>các từ chuyên môn dùng trong repo</span>
+      </div>
+      <div class="grid three" style="margin-top:0;">
+        <div class="card">
+          <h3>Agent</h3>
+          <p>Một chương trình dùng model AI để hiểu yêu cầu, quyết định bước tiếp theo, gọi tool, và trả lời. Trong repo này agent chạy bên trong CLI.</p>
+        </div>
+        <div class="card">
+          <h3>Harness</h3>
+          <p>Lớp khung bao quanh model: quản lý session, tool, memory, todo/mode và cách agent tương tác với runtime.</p>
+        </div>
+        <div class="card">
+          <h3>Runtime</h3>
+          <p>Tập hợp object đang sống khi app chạy: config, agent, memory surface, autonomy session, search provider status.</p>
+        </div>
+        <div class="card">
+          <h3>Task Intake</h3>
+          <p>Bước nhận và phân loại yêu cầu đầu vào. Đây là nơi quyết định câu của bạn là chat thường, sửa code, research, hay tạo issue.</p>
+        </div>
+        <div class="card">
+          <h3>Autonomy</h3>
+          <p>Mức tự động hóa. <code>edit</code> cho phép sửa repo; <code>deliver</code> mở thêm commit/push khi được duyệt; <code>auto</code> rộng hơn và rủi ro hơn.</p>
+        </div>
+        <div class="card">
+          <h3>Plan Approval</h3>
+          <p>Cổng duyệt kế hoạch. Agent phải dừng lại, trình bày plan, rồi chờ bạn dùng <code>/approve</code> trước khi làm task rủi ro.</p>
+        </div>
+        <div class="card">
           <h3>Memory Surface</h3>
-          <ul>
-            <li><code>.learnings/LEARNINGS.md</code> luu repo learning va working preference da duoc xac nhan.</li>
-            <li><code>.learnings/ERRORS.md</code> luu loi lap lai, root cause, va verified fix.</li>
-            <li><code>.learnings/FEATURE_REQUESTS.md</code> luu y tuong capability cho tuong lai.</li>
-          </ul>
+          <p>Nơi lưu tri thức dài hạn bằng file markdown trong repo. Không phải bộ nhớ ẩn; bạn có thể mở file ra đọc và sửa.</p>
         </div>
-        <div class="cell">
-          <h3>Backlog</h3>
-          <ul>
-            <li><code>.codex/issues/</code> la backlog implementation-ready cho local issues.</li>
-            <li>Moi issue du cu the de mot agent hoac contributor khac co the nhat len va lam doc lap.</li>
-            <li>Backlog tach biet voi memory; no track buildable work thay vi durable knowledge.</li>
-          </ul>
+        <div class="card">
+          <h3>Verification</h3>
+          <p>Bước kiểm tra sau thay đổi, ví dụ chạy test. Mục tiêu là không chỉ nói “đã sửa”, mà còn chứng minh bằng command pass/fail.</p>
+        </div>
+        <div class="card">
+          <h3>Completion Report</h3>
+          <p>Báo cáo cuối task: đã làm gì, file nào đổi, test nào chạy, rủi ro còn lại, memory nào được ghi.</p>
+        </div>
+        <div class="card">
+          <h3>Search Provider</h3>
+          <p>Lớp thay thế được cho web search. Ý tưởng là không khóa agent vào một dịch vụ search duy nhất.</p>
+        </div>
+        <div class="card">
+          <h3>Secret</h3>
+          <p>Thông tin nhạy cảm như API key. Repo có module để đọc secret từ env và redact secret khỏi log/output.</p>
+        </div>
+        <div class="card">
+          <h3>ADR</h3>
+          <p>Architecture Decision Record: file ghi một quyết định kiến trúc quan trọng, lý do chọn, và hệ quả.</p>
         </div>
       </div>
     </section>
 
-    <div class="grid two">
-      <section class="card">
-        <div class="section-head">
-          <h2>Autonomy Levels</h2>
-          <span>cac che do quyen han da duoc dinh nghia cho V1</span>
-        </div>
-        <div class="list">
-          <div class="item">
-            <div class="badge done">E</div>
-            <div>
-              <strong>Edit Mode</strong>
-              <p>Che do mac dinh cua V1. Duoc sua repo va chay verification, nhung delivery action van can approval hoac mode cao hon.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="badge note">D</div>
-            <div>
-              <strong>Deliver Mode</strong>
-              <p>Copilot duoc sua repo va thuc hien delivery action duoc yeu cau truc tiep nhu commit, push, tao PR, hoac buoc publish tuong tu.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="badge plan">A</div>
-            <div>
-              <strong>Auto Mode</strong>
-              <p>Copilot duoc tu chon repository edit va delivery action can thiet trong boundary ro rang do Primary User dat ra.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="section-head">
-          <h2>Mo Hinh Web Research</h2>
-          <span>day la chat luong nghien cuu, khong chi la mot tool hook</span>
-        </div>
-        <div class="list">
-          <div class="item">
-            <div class="badge done">✓</div>
-            <div>
-              <strong>Bat buoc khi tri thuc trong repo thieu hoac cu</strong>
-              <p>V1 khong duoc doan ve thu vien hien tai, public docs, hay outside fact khi repo khong tra loi duoc.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="badge done">≠</div>
-            <div>
-              <strong>Source Comparison la mac dinh</strong>
-              <p>Cac nguon lien quan phai duoc so sanh, uu tien official hoac primary docs, va neu conflict thi phai noi ro.</p>
-            </div>
-          </div>
-          <div class="item">
-            <div class="badge note">↺</div>
-            <div>
-              <strong>Search Provider thay duoc</strong>
-              <p>Hanh vi cua he thong khong duoc vo khi doi backend giua Microsoft, OpenAI, Tavily, Brave, SerpAPI, hay mot provider khac.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <section class="band grid" style="margin-top:18px;">
+    <section class="band grid">
       <div class="section-head">
-        <h2>Backlog Local Issue Hien Tai</h2>
-        <span>phan viec duoc track trong <code>.codex/issues/</code></span>
+        <h2>Quy Trình Chạy Thử Thủ Công</h2>
+        <span>đường happy path hiện tại</span>
       </div>
-      <div class="issue-list">
-        <div class="issue">
-          <strong>0001 • Implement web research search provider</strong>
-          <span>Chuan hoa external search sau mot provider abstraction va hanh vi lay source.</span>
-        </div>
-        <div class="issue">
-          <strong>0002 • Implement memory surface writer</strong>
-          <span>Ghi learnings va errors ben vung vao memory surface backing bang repo.</span>
-        </div>
-        <div class="issue">
-          <strong>0003 • Implement local issues backlog commands</strong>
-          <span>Lam viec voi backlog markdown local nhu mot be mat hang nhat cua V1.</span>
-        </div>
-        <div class="issue">
-          <strong>0004 • Implement autonomy level commands</strong>
-          <span>Expose va quan ly hanh vi cua Edit, Deliver, va Auto mode.</span>
-        </div>
-        <div class="issue">
-          <strong>0005 • Implement plan approval flow</strong>
-          <span>Yeu cau approval ro rang truoc khi lam viec lon, mo ho, hoac rui ro.</span>
-        </div>
-        <div class="issue">
-          <strong>0006 • Implement completion report format</strong>
-          <span>Chuan hoa phan da thay doi, verification da chay, va risk con lai sau khi xong task.</span>
-        </div>
-        <div class="issue">
-          <strong>0007 • Implement secret configuration flow</strong>
-          <span>Xu ly local secret an toan, voi approval ro rang truoc khi ghi credential.</span>
-        </div>
-        <div class="issue">
-          <strong>0008 • Implement verification run discovery</strong>
-          <span>Tim va report cac check can chay sau khi sua repo.</span>
-        </div>
-        <div class="issue">
-          <strong>0009 • Implement CLI task intake classification</strong>
-          <span>Phan loai task intake tu do va chi hoi them khi that su can.</span>
-        </div>
-        <div class="issue">
-          <strong>0010 • Update status page from context and ADRs</strong>
-          <span>Cap nhat trang nay theo glossary, ADR, capability da co, va roadmap hien tai.</span>
-        </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Bước</th>
+              <th>Lệnh / hành động</th>
+              <th>Kỳ vọng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Cấu hình key</td>
+              <td><code>export OPENROUTER_API_KEY="sk-or-..."</code></td>
+              <td>App có credential để gọi OpenRouter.</td>
+            </tr>
+            <tr>
+              <td>2. Kiểm tra config</td>
+              <td><code>uv run agent-harness --check-config</code></td>
+              <td>In <code>Configuration OK</code> và <code>Secret status: configured</code>.</td>
+            </tr>
+            <tr>
+              <td>3. Chạy CLI</td>
+              <td><code>uv run agent-harness</code></td>
+              <td>Hiện prompt <code>you&gt;</code> và danh sách command.</td>
+            </tr>
+            <tr>
+              <td>4. Chat thường</td>
+              <td>Nhập <code>xin chao</code></td>
+              <td>Agent trả lời, không chạy pytest.</td>
+            </tr>
+            <tr>
+              <td>5. Task kỹ thuật</td>
+              <td>Nhập một task sửa code rõ ràng</td>
+              <td>Agent xử lý và Completion Report có verification.</td>
+            </tr>
+            <tr>
+              <td>6. Task rủi ro</td>
+              <td>Nhập task có commit/push</td>
+              <td>CLI yêu cầu plan approval trước khi chạy.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </section>
-
-    <section class="band grid" style="margin-top:18px;">
-      <div class="section-head">
-        <h2>Tieu Chi Hoan Thanh V1</h2>
-        <span>moc nay la capability-complete, khong phai marketing-complete</span>
-      </div>
-      <div class="criteria">
-        <div class="criterion">
-          <strong>CLI Work Surface</strong>
-          <p>Primary User co the giao task, xem output, va lai huong cong viec tu CLI.</p>
-        </div>
-        <div class="criterion">
-          <strong>Web Research</strong>
-          <p>External research cho du lieu moi chay qua provider co the thay va co source comparison.</p>
-        </div>
-        <div class="criterion">
-          <strong>Repository Edit</strong>
-          <p>Copilot co the doc va sua repo nay, sau do chay verification phu hop.</p>
-        </div>
-        <div class="criterion">
-          <strong>Memory Surface</strong>
-          <p>Learnings, errors, va preferences da xac nhan duoc ghi lai vao memory cua repo.</p>
-        </div>
-        <div class="criterion">
-          <strong>Backlog of Local Issues</strong>
-          <p>Cong viec implementation-ready duoc track trong markdown issue ben trong repo nay.</p>
-        </div>
+      <div class="callout">
+        Lưu ý: Web research end-to-end vẫn cần test riêng. Sau khi đổi sang OpenRouter, thông báo runtime không nên tiếp tục nói như thể Microsoft hosted search là provider chắc chắn. Đây là phần nên chỉnh tiếp.
       </div>
     </section>
-
-    <footer>
-      Trang nay can duoc cap nhat khi scope, glossary, flow van hanh, hoac quyet dinh kien truc thay doi du de lam trang hien tai tro nen sai lech. No van duoc giu o dang static de GitHub Pages co the phuc vu truc tiep tu <code>index.html</code>.
-    </footer>
-  </div>
+  </main>
+  <footer>
+    Trang này là tài liệu tĩnh của repo <code>personal-agent-harness-map</code>. Nội dung phản ánh code sau commit sửa conversation intake và uv verification.
+  </footer>
 </body>
 </html>
