@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Personal Copilot V1 Status</title>
+  <title>Trang Thai Personal Copilot V1</title>
   <style>
     :root {
       --bg: #f4f6f8;
@@ -309,6 +309,69 @@
       line-height: 1.5;
     }
 
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+      align-items: stretch;
+    }
+
+    .flow-node {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+      min-height: 150px;
+      position: relative;
+    }
+
+    .flow-node strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .flow-node p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-2);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .flow-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .flow-table th,
+    .flow-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 12px 10px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .flow-table th {
+      color: var(--ink);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: #fbfcfd;
+    }
+
     .criteria {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -348,7 +411,8 @@
       .grid.three,
       .row,
       .columns,
-      .criteria {
+      .criteria,
+      .flow-grid {
         grid-template-columns: 1fr;
       }
 
@@ -361,44 +425,49 @@
         margin-top: 6px;
         text-align: left;
       }
+
+      .flow-arrow {
+        transform: rotate(90deg);
+        min-height: 18px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
-      <div class="eyebrow">Status Page • Personal Copilot V1</div>
-      <h1>Current repository status, not a generic harness map.</h1>
+      <div class="eyebrow">Trang Thai • Personal Copilot V1</div>
+      <h1>Trang thai he thong agent trong repo hien tai.</h1>
       <p class="subtitle">
-        This repository now describes a Personal Copilot with a narrower V1: technical work and
-        personal knowledge work inside the current repository. The CLI is the work surface. This
-        static page exists only to show scope, implemented surfaces, major decisions, and the
-        remaining local-issue backlog.
+        Repo nay hien mo ta mot <strong>Personal Copilot</strong> voi pham vi V1 ro rang:
+        lam viec ky thuat va quan ly tri thuc ca nhan ben trong repo hien tai. CLI la noi van hanh
+        chinh. Trang tinh nay chi dung de cho ban nhin scope, cac capability da co, cac quyet dinh
+        kien truc chinh, va backlog con lai.
       </p>
       <div class="pill-row">
-        <span class="pill">V1 is limited to the Current Repository</span>
-        <span class="pill">Web Research requires Source Comparison</span>
-        <span class="pill">Search Provider is replaceable</span>
-        <span class="pill">Memory Surface lives in <code>.learnings/</code></span>
-        <span class="pill">Backlog lives in <code>.codex/issues/</code></span>
-        <span class="pill">GitHub Pages compatible static HTML</span>
+        <span class="pill">V1 chi lam viec voi repo hien tai</span>
+        <span class="pill">Web Research phai co Source Comparison</span>
+        <span class="pill">Search Provider co the thay the</span>
+        <span class="pill">Memory Surface nam trong <code>.learnings/</code></span>
+        <span class="pill">Backlog nam trong <code>.codex/issues/</code></span>
+        <span class="pill">Trang tinh tuong thich GitHub Pages</span>
       </div>
       <div class="hero-metrics">
         <div class="metric">
           <strong>1</strong>
-          <span>current repository is the full V1 operating boundary for edits, verification, memory writes, and local issues</span>
+          <span>repo hien tai la bien van hanh duy nhat cua V1 cho sua code, verify, memory write, va local issue</span>
         </div>
         <div class="metric">
           <strong>3</strong>
-          <span>autonomy levels are defined: Edit Mode, Deliver Mode, and Auto Mode</span>
+          <span>muc tu dong hoa da duoc chot: Edit Mode, Deliver Mode, va Auto Mode</span>
         </div>
         <div class="metric">
-          <strong>9</strong>
-          <span>local issues currently track the implementation backlog ahead of this status page update</span>
+          <strong>10</strong>
+          <span>local issue hien theo doi backlog implementation cua V1, bao gom ca issue cap nhat trang thai</span>
         </div>
         <div class="metric">
           <strong>5</strong>
-          <span>plain-language criteria define when Personal Copilot V1 is actually complete</span>
+          <span>tieu chi bang ngon ngu don gian quy dinh khi nao V1 duoc coi la hoan thanh that su</span>
         </div>
       </div>
     </section>
@@ -406,43 +475,43 @@
     <div class="grid two">
       <section class="card">
         <div class="section-head">
-          <h2>V1 Scope</h2>
-          <span>what this system is for right now</span>
+          <h2>Pham Vi V1</h2>
+          <span>he thong nay dung de lam gi o thoi diem hien tai</span>
         </div>
         <div class="stack">
           <div class="surface">
-            <strong>Primary use case</strong>
-            <p>The Personal Copilot helps one Primary User understand, change, review, document, and research software work, while also preserving reusable knowledge inside this repository.</p>
+            <strong>Use case chinh</strong>
+            <p>Personal Copilot ho tro mot Primary User doc hieu, sua, review, document, va research cong viec phan mem, dong thoi luu lai tri thuc tai su dung duoc trong repo nay.</p>
           </div>
           <div class="surface">
-            <strong>Current Repository only</strong>
-            <p>V1 does not span multiple repos, cloud drives, inboxes, or life-admin systems. Repository knowledge in this repo is the local source of truth.</p>
+            <strong>Chi repo hien tai</strong>
+            <p>V1 chua mo rong sang nhieu repo, cloud drive, inbox, hay he thong quan ly doi song. Tri thuc trong repo nay la local source of truth.</p>
           </div>
           <div class="surface">
             <strong>Work Surface</strong>
-            <p>The CLI is where task intake, planning, verification, and completion reporting happen. This page is informational only and is not the working interface.</p>
+            <p>CLI la noi dien ra task intake, planning, verification, va completion report. Trang nay chi de quan sat va giai thich, khong phai giao dien thao tac chinh.</p>
           </div>
         </div>
       </section>
 
       <aside class="card">
         <div class="section-head">
-          <h2>ADR Decisions</h2>
-          <span>plain language</span>
+          <h2>Quyet Dinh ADR</h2>
+          <span>dien giai bang ngon ngu de doc</span>
         </div>
         <div class="list">
           <div class="item">
             <div class="badge note">1</div>
             <div>
-              <strong>Replaceable search backend</strong>
-              <p>Web research is mandatory for fresh facts, but the search backend is not permanent. V1 may default to Microsoft-hosted search when available, while the copilot behavior stays provider-agnostic.</p>
+              <strong>Search backend co the thay</strong>
+              <p>Web research la bat buoc cho du lieu moi, nhung search backend khong bi khoa cung. V1 co the mac dinh dung Microsoft hosted search khi co san, trong khi hanh vi cua copilot van doc lap voi provider.</p>
             </div>
           </div>
           <div class="item">
             <div class="badge note">2</div>
             <div>
-              <strong>Single-repo boundary first</strong>
-              <p>Multi-repo support is deferred until the core loop is proven. That keeps repository edits, memory routing, and verification simpler in V1.</p>
+              <strong>Bat dau voi mot repo</strong>
+              <p>Multi-repo duoc hoan lai den sau khi core loop da on dinh. Cach nay giu cho repository edit, memory routing, va verification don gian hon trong V1.</p>
             </div>
           </div>
         </div>
@@ -451,25 +520,100 @@
 
     <section class="band grid" style="margin-top:18px;">
       <div class="section-head">
-        <h2>Implemented Surfaces in the Repository</h2>
-        <span>based on the current code and docs layout</span>
+        <h2>Flow Van Hanh</h2>
+        <span>mo ta nhanh kieu node flow de nhin nhu mot workflow engine</span>
+      </div>
+      <div class="flow-grid">
+        <div class="flow-node">
+          <strong>1. Task Intake</strong>
+          <p>Ban nhap task tu do trong CLI. He thong dung <code>intake.py</code> de phan loai task thanh technical work, web research, memory work, local issue, secret config, hoac status page work.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <strong>2. Gate & Plan</strong>
+          <p><code>autonomy.py</code> va <code>planning.py</code> quyet dinh task co can nang autonomy, plan approval, hay lam ngay. Task lon, mo ho, rui ro se dung o buoc approve.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <strong>3. Execute</strong>
+          <p><code>agent.py</code> va harness goi model, tool, web research, backlog, hoac memory writer tuy theo task. Neu task la local issue hoac memory, co the xu ly ma khong can chat luan dai.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <strong>4. Verify</strong>
+          <p><code>verification.py</code> tim va chay check phu hop sau repository edit. Neu repo co pytest, script test, hoac package test command, ket qua se duoc dua vao report.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <strong>5. Report & Memory</strong>
+          <p><code>reports.py</code> tao Completion Report. <code>memory_surface.py</code> ghi learnings, errors, preferences da xac nhan, va feature requests vao <code>.learnings/</code>.</p>
+        </div>
+      </div>
+      <table class="flow-table">
+        <thead>
+          <tr>
+            <th>Node</th>
+            <th>Input</th>
+            <th>Output</th>
+            <th>Module chinh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Task Intake</td>
+            <td>Cau lenh tu do tu nguoi dung</td>
+            <td>Task classification + route</td>
+            <td><code>intake.py</code>, <code>console.py</code></td>
+          </tr>
+          <tr>
+            <td>Gate & Plan</td>
+            <td>Task classification + autonomy hien tai</td>
+            <td>Cho lam ngay hoac tao plan approval</td>
+            <td><code>autonomy.py</code>, <code>planning.py</code></td>
+          </tr>
+          <tr>
+            <td>Execute</td>
+            <td>Task da duoc route</td>
+            <td>Agent response, memory write, local issue, hoac repo edit</td>
+            <td><code>agent.py</code>, <code>backlog.py</code>, <code>memory_surface.py</code></td>
+          </tr>
+          <tr>
+            <td>Verify</td>
+            <td>Task co thay doi repo</td>
+            <td>Verification summary</td>
+            <td><code>verification.py</code></td>
+          </tr>
+          <tr>
+            <td>Completion</td>
+            <td>Ket qua task + verification + risk</td>
+            <td>Completion Report hien thi trong CLI</td>
+            <td><code>reports.py</code>, <code>console.py</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="band grid" style="margin-top:18px;">
+      <div class="section-head">
+        <h2>Nhung Be Mat Da Co Trong Repo</h2>
+        <span>dua tren code va tai lieu hien tai</span>
       </div>
       <div class="matrix">
         <div class="row">
           <div class="cell">
-            <h3>Runtime and control surfaces</h3>
+            <h3>Runtime va control surfaces</h3>
             <ul>
-              <li><code>src/agent_harness/cli.py</code> and <code>console.py</code> establish the CLI work surface.</li>
-              <li><code>agent.py</code>, <code>instructions.py</code>, and <code>tools.py</code> define the harness and tool layer.</li>
-              <li><code>config.py</code> and <code>__main__.py</code> provide entry and configuration wiring.</li>
+              <li><code>src/agent_harness/cli.py</code> va <code>console.py</code> tao CLI work surface.</li>
+              <li><code>agent.py</code>, <code>instructions.py</code>, va <code>tools.py</code> dinh nghia harness va tang tool.</li>
+              <li><code>config.py</code> va <code>__main__.py</code> cung cap entry va wiring cau hinh.</li>
             </ul>
           </div>
           <div class="cell">
-            <h3>Decision-backed capability modules</h3>
+            <h3>Cac module capability da co spec ho tro</h3>
             <ul>
-              <li><code>search.py</code> represents the search provider abstraction for web research.</li>
-              <li><code>memory_surface.py</code> represents the repository-backed memory surface.</li>
-              <li><code>backlog.py</code>, <code>autonomy.py</code>, <code>planning.py</code>, <code>reports.py</code>, <code>secrets.py</code>, <code>verification.py</code>, and <code>intake.py</code> map directly to the V1 workflow vocabulary.</li>
+              <li><code>search.py</code> dai dien cho abstraction search provider cua web research.</li>
+              <li><code>memory_surface.py</code> dai dien cho memory surface backing bang repo.</li>
+              <li><code>backlog.py</code>, <code>autonomy.py</code>, <code>planning.py</code>, <code>reports.py</code>, <code>secrets.py</code>, <code>verification.py</code>, va <code>intake.py</code> map truc tiep vao vocabulary cua V1.</li>
             </ul>
           </div>
         </div>
@@ -478,17 +622,17 @@
         <div class="cell">
           <h3>Memory Surface</h3>
           <ul>
-            <li><code>.learnings/LEARNINGS.md</code> stores durable repo learnings and confirmed working preferences.</li>
-            <li><code>.learnings/ERRORS.md</code> stores recurring failures, root causes, and verified fixes.</li>
-            <li><code>.learnings/FEATURE_REQUESTS.md</code> stores rough future capability ideas.</li>
+            <li><code>.learnings/LEARNINGS.md</code> luu repo learning va working preference da duoc xac nhan.</li>
+            <li><code>.learnings/ERRORS.md</code> luu loi lap lai, root cause, va verified fix.</li>
+            <li><code>.learnings/FEATURE_REQUESTS.md</code> luu y tuong capability cho tuong lai.</li>
           </ul>
         </div>
         <div class="cell">
           <h3>Backlog</h3>
           <ul>
-            <li><code>.codex/issues/</code> is the implementation-ready backlog for local issues.</li>
-            <li>Issues are concrete enough for an agent or another contributor to pick up independently.</li>
-            <li>The backlog is separate from memory; it tracks buildable work rather than durable knowledge.</li>
+            <li><code>.codex/issues/</code> la backlog implementation-ready cho local issues.</li>
+            <li>Moi issue du cu the de mot agent hoac contributor khac co the nhat len va lam doc lap.</li>
+            <li>Backlog tach biet voi memory; no track buildable work thay vi durable knowledge.</li>
           </ul>
         </div>
       </div>
@@ -498,28 +642,28 @@
       <section class="card">
         <div class="section-head">
           <h2>Autonomy Levels</h2>
-          <span>permission modes defined for V1</span>
+          <span>cac che do quyen han da duoc dinh nghia cho V1</span>
         </div>
         <div class="list">
           <div class="item">
             <div class="badge done">E</div>
             <div>
               <strong>Edit Mode</strong>
-              <p>The default V1 mode. Repository edits and verification runs are allowed, but delivery actions still need approval or a higher mode.</p>
+              <p>Che do mac dinh cua V1. Duoc sua repo va chay verification, nhung delivery action van can approval hoac mode cao hon.</p>
             </div>
           </div>
           <div class="item">
             <div class="badge note">D</div>
             <div>
               <strong>Deliver Mode</strong>
-              <p>The copilot may perform repository edits plus directly requested delivery actions such as commit, push, PR creation, or similar publish steps.</p>
+              <p>Copilot duoc sua repo va thuc hien delivery action duoc yeu cau truc tiep nhu commit, push, tao PR, hoac buoc publish tuong tu.</p>
             </div>
           </div>
           <div class="item">
             <div class="badge plan">A</div>
             <div>
               <strong>Auto Mode</strong>
-              <p>The copilot may choose necessary repository edits and delivery actions inside explicit boundaries set by the Primary User.</p>
+              <p>Copilot duoc tu chon repository edit va delivery action can thiet trong boundary ro rang do Primary User dat ra.</p>
             </div>
           </div>
         </div>
@@ -527,29 +671,29 @@
 
       <section class="card">
         <div class="section-head">
-          <h2>Web Research Model</h2>
-          <span>quality bar, not just a tool hook</span>
+          <h2>Mo Hinh Web Research</h2>
+          <span>day la chat luong nghien cuu, khong chi la mot tool hook</span>
         </div>
         <div class="list">
           <div class="item">
             <div class="badge done">✓</div>
             <div>
-              <strong>Mandatory when repo knowledge is missing or stale</strong>
-              <p>V1 should not guess about current libraries, public docs, or outside facts when the repository cannot answer them.</p>
+              <strong>Bat buoc khi tri thuc trong repo thieu hoac cu</strong>
+              <p>V1 khong duoc doan ve thu vien hien tai, public docs, hay outside fact khi repo khong tra loi duoc.</p>
             </div>
           </div>
           <div class="item">
             <div class="badge done">≠</div>
             <div>
-              <strong>Source Comparison is the default</strong>
-              <p>Relevant sources should be compared, with preference for official or primary documentation and an explicit note when sources conflict.</p>
+              <strong>Source Comparison la mac dinh</strong>
+              <p>Cac nguon lien quan phai duoc so sanh, uu tien official hoac primary docs, va neu conflict thi phai noi ro.</p>
             </div>
           </div>
           <div class="item">
             <div class="badge note">↺</div>
             <div>
-              <strong>Search Provider is swappable</strong>
-              <p>The repository behavior should survive a backend change across Microsoft, OpenAI, Tavily, Brave, SerpAPI, or another provider.</p>
+              <strong>Search Provider thay duoc</strong>
+              <p>Hanh vi cua he thong khong duoc vo khi doi backend giua Microsoft, OpenAI, Tavily, Brave, SerpAPI, hay mot provider khac.</p>
             </div>
           </div>
         </div>
@@ -558,80 +702,84 @@
 
     <section class="band grid" style="margin-top:18px;">
       <div class="section-head">
-        <h2>Current Local-Issue Backlog</h2>
-        <span>planned work tracked in <code>.codex/issues/</code></span>
+        <h2>Backlog Local Issue Hien Tai</h2>
+        <span>phan viec duoc track trong <code>.codex/issues/</code></span>
       </div>
       <div class="issue-list">
         <div class="issue">
           <strong>0001 • Implement web research search provider</strong>
-          <span>Formalize external search behind a provider abstraction with source retrieval behavior.</span>
+          <span>Chuan hoa external search sau mot provider abstraction va hanh vi lay source.</span>
         </div>
         <div class="issue">
           <strong>0002 • Implement memory surface writer</strong>
-          <span>Write durable learnings and errors into the repository-backed memory surface.</span>
+          <span>Ghi learnings va errors ben vung vao memory surface backing bang repo.</span>
         </div>
         <div class="issue">
           <strong>0003 • Implement local issues backlog commands</strong>
-          <span>Work with the local markdown backlog as a first-class V1 surface.</span>
+          <span>Lam viec voi backlog markdown local nhu mot be mat hang nhat cua V1.</span>
         </div>
         <div class="issue">
           <strong>0004 • Implement autonomy level commands</strong>
-          <span>Expose and manage Edit, Deliver, and Auto mode behavior.</span>
+          <span>Expose va quan ly hanh vi cua Edit, Deliver, va Auto mode.</span>
         </div>
         <div class="issue">
           <strong>0005 • Implement plan approval flow</strong>
-          <span>Require clear approval before executing large, ambiguous, or risky work.</span>
+          <span>Yeu cau approval ro rang truoc khi lam viec lon, mo ho, hoac rui ro.</span>
         </div>
         <div class="issue">
           <strong>0006 • Implement completion report format</strong>
-          <span>Standardize what changed, what was verified, and what risk remains after work finishes.</span>
+          <span>Chuan hoa phan da thay doi, verification da chay, va risk con lai sau khi xong task.</span>
         </div>
         <div class="issue">
           <strong>0007 • Implement secret configuration flow</strong>
-          <span>Handle local secret setup safely, with explicit approval before writing credentials.</span>
+          <span>Xu ly local secret an toan, voi approval ro rang truoc khi ghi credential.</span>
         </div>
         <div class="issue">
           <strong>0008 • Implement verification run discovery</strong>
-          <span>Discover and report the checks that should run after repository edits.</span>
+          <span>Tim va report cac check can chay sau khi sua repo.</span>
         </div>
         <div class="issue">
           <strong>0009 • Implement CLI task intake classification</strong>
-          <span>Classify free-form task intake and ask follow-up questions only when needed.</span>
+          <span>Phan loai task intake tu do va chi hoi them khi that su can.</span>
+        </div>
+        <div class="issue">
+          <strong>0010 • Update status page from context and ADRs</strong>
+          <span>Cap nhat trang nay theo glossary, ADR, capability da co, va roadmap hien tai.</span>
         </div>
       </div>
     </section>
 
     <section class="band grid" style="margin-top:18px;">
       <div class="section-head">
-        <h2>V1 Completion Criteria</h2>
-        <span>the milestone is capability-complete, not marketing-complete</span>
+        <h2>Tieu Chi Hoan Thanh V1</h2>
+        <span>moc nay la capability-complete, khong phai marketing-complete</span>
       </div>
       <div class="criteria">
         <div class="criterion">
           <strong>CLI Work Surface</strong>
-          <p>The Primary User can give tasks, review outputs, and steer work from the CLI.</p>
+          <p>Primary User co the giao task, xem output, va lai huong cong viec tu CLI.</p>
         </div>
         <div class="criterion">
           <strong>Web Research</strong>
-          <p>Fresh external research works through a replaceable provider with source comparison.</p>
+          <p>External research cho du lieu moi chay qua provider co the thay va co source comparison.</p>
         </div>
         <div class="criterion">
           <strong>Repository Edit</strong>
-          <p>The copilot can inspect and change this repository, then run relevant verification.</p>
+          <p>Copilot co the doc va sua repo nay, sau do chay verification phu hop.</p>
         </div>
         <div class="criterion">
           <strong>Memory Surface</strong>
-          <p>Reusable learnings, errors, and confirmed preferences are written back into repository memory.</p>
+          <p>Learnings, errors, va preferences da xac nhan duoc ghi lai vao memory cua repo.</p>
         </div>
         <div class="criterion">
           <strong>Backlog of Local Issues</strong>
-          <p>Implementation-ready work is tracked in markdown issues inside this repository.</p>
+          <p>Cong viec implementation-ready duoc track trong markdown issue ben trong repo nay.</p>
         </div>
       </div>
     </section>
 
     <footer>
-      Status Page updates are needed when scope, glossary, or major decisions change enough that this page would misrepresent the system. This page remains static so GitHub Pages can serve it directly from <code>index.html</code>.
+      Trang nay can duoc cap nhat khi scope, glossary, flow van hanh, hoac quyet dinh kien truc thay doi du de lam trang hien tai tro nen sai lech. No van duoc giu o dang static de GitHub Pages co the phuc vu truc tiep tu <code>index.html</code>.
     </footer>
   </div>
 </body>
