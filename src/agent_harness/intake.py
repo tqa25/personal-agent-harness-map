@@ -6,6 +6,7 @@ from enum import Enum
 
 
 class TaskType(str, Enum):
+    CONVERSATION = "conversation"
     TECHNICAL_WORK = "technical_work"
     WEB_RESEARCH = "web_research"
     MEMORY_WORK = "memory_work"
@@ -115,6 +116,18 @@ def classify_task(task: str) -> TaskClassification:
         for task_type, keywords in KEYWORDS.items()
     }
     best_score = max(len(matches) for matches in scores.values())
+    if best_score == 0:
+        requires_higher_autonomy = _contains_delivery_action(normalized)
+        return TaskClassification(
+            task_type=TaskType.CONVERSATION,
+            route=TaskType.CONVERSATION.value,
+            requires_clarification=False,
+            clarification_question=None,
+            requires_plan_approval=requires_higher_autonomy,
+            requires_higher_autonomy=requires_higher_autonomy,
+            explanation=f"Classified as conversation; matched: default; task: {task}.",
+        )
+
     top_types = tuple(
         task_type for task_type, matches in scores.items() if len(matches) == best_score
     )

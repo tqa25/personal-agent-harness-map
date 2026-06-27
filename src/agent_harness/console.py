@@ -266,11 +266,12 @@ async def _handle_command(
 
 
 def _session_from_dict(data: dict[str, Any]) -> Any:
+    if "session_id" not in data:
+        return data
+
     try:
         from agent_framework._sessions import AgentSession
     except ImportError as exc:
-        if isinstance(data, dict):
-            return data
         raise RuntimeError("Could not import AgentSession from Agent Framework.") from exc
 
     return AgentSession.from_dict(data)

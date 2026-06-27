@@ -1,6 +1,15 @@
 from agent_harness.intake import TaskType, classify_task
 
 
+def test_plain_conversation_does_not_default_to_technical_work() -> None:
+    classification = classify_task("xin chao")
+
+    assert classification.task_type is TaskType.CONVERSATION
+    assert classification.route == "conversation"
+    assert classification.requires_clarification is False
+    assert classification.requires_plan_approval is False
+
+
 def test_clear_repository_task_classifies_as_technical_work_without_planning() -> None:
     classification = classify_task("Fix the failing pytest test in src/agent.py")
 

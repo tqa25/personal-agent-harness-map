@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
 import tomllib
@@ -89,8 +90,12 @@ def discover_verification_commands(
 
     if "pytest" in pyproject.get("tool", {}):
         focused_tests = _changed_test_files(root, changed_files or [])
-        pytest_args = (sys.executable, "-m", "pytest", *focused_tests)
-        pytest_name = " ".join(("python", "-m", "pytest", *focused_tests))
+        if (root / "uv.lock").exists() and shutil.which("uv"):
+            pytest_args = ("uv", "run", "--extra", "dev", "pytest", *focused_tests)
+            pytest_name = " ".join(("uv", "run", "--extra", "dev", "pytest", *focused_tests))
+        else:
+            pytest_args = (sys.executable, "-m", "pytest", *focused_tests)
+            pytest_name = " ".join(("python", "-m", "pytest", *focused_tests))
         return [
             VerificationCommand(
                 name=pytest_name,

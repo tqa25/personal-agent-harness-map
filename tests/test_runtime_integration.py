@@ -134,6 +134,20 @@ def test_technical_task_runs_verification_and_reports_it(tmp_path: Path) -> None
     assert "python -m pytest" in report
 
 
+def test_plain_conversation_does_not_run_verification(tmp_path: Path) -> None:
+    (tmp_path / "pyproject.toml").write_text("[tool.pytest.ini_options]\n")
+    runtime = _runtime(tmp_path, responses=["Xin chao."])
+    state = ConsoleState(session=runtime.agent.create_session())
+
+    _state, outputs = asyncio.run(handle_console_input(runtime, state, "xin chao"))
+
+    report = outputs[0]
+    assert "Completion Report" in report
+    assert "Files: No files changed." in report
+    assert "- NOT RUN verification: No verification was available." in report
+    assert "python -m pytest" not in report
+
+
 def test_session_export_import_round_trip_preserves_console_state(tmp_path: Path) -> None:
     runtime = _runtime(tmp_path)
     state = ConsoleState(session=runtime.agent.create_session())
