@@ -5,7 +5,7 @@ This repo contains a small Python agent harness scaffold based on Microsoft's
 
 It builds a general-purpose harness agent with:
 
-- OpenAI chat client configuration from environment variables.
+- OpenRouter chat client configuration through the OpenAI-compatible API.
 - A custom tool exposed to the model.
 - Planning mode, todos, memory, and hosted web search enabled by default.
 - A streaming console entrypoint.
@@ -14,25 +14,30 @@ It builds a general-purpose harness agent with:
 
 - Python 3.11+
 - `uv`
-- An OpenAI API key
-- Optional `OPENAI_BASE_URL` if you are using a compatible non-default endpoint
+- An OpenRouter API key
+- Optional `SEARCH_PROVIDER_API_KEY` if you later add a non-default external search backend
 
 ## Configure
 
 ```bash
-export OPENAI_API_KEY="sk-..."
-export OPENAI_MODEL="gpt-5.4"
+export OPENROUTER_API_KEY="sk-or-..."
+export OPENROUTER_MODEL="~openai/gpt-latest"
 ```
 
 Optional variables:
 
 ```bash
-export OPENAI_BASE_URL="https://api.openai.com/v1"
-export OPENAI_ORG_ID="org_..."
+export OPENROUTER_BASE_URL="https://openrouter.ai/api/v1"
 ```
 
-`OPENAI_MODEL` is optional. If omitted, the app uses the article's default
-model name.
+`OPENROUTER_MODEL` is optional. If omitted, the app defaults to
+`~openai/gpt-latest`.
+
+This repo uses the OpenAI-compatible SDK path against OpenRouter. OpenRouter's
+official docs describe that setup as:
+
+- `base_url` / `baseURL`: `https://openrouter.ai/api/v1`
+- `api_key` / `apiKey`: your `OPENROUTER_API_KEY`
 
 ## Install and Run
 

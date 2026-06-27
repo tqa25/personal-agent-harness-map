@@ -6,16 +6,14 @@ from agent_harness.config import ConfigError, HarnessConfig
 from agent_harness.autonomy import AutonomyLevel
 
 
-def test_config_uses_openai_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delenv("OPENAI_MODEL", raising=False)
-    monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
-    monkeypatch.delenv("OPENAI_ORG_ID", raising=False)
+def test_config_uses_openrouter_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("OPENROUTER_MODEL", raising=False)
+    monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
 
     config = HarnessConfig.from_env()
 
-    assert config.openai_model == "gpt-5.4"
-    assert config.openai_base_url is None
-    assert config.openai_org_id is None
+    assert config.openrouter_model == "~openai/gpt-latest"
+    assert config.openrouter_base_url == "https://openrouter.ai/api/v1"
     assert config.default_autonomy_level is AutonomyLevel.EDIT
     assert config.disable_todo is False
     assert config.disable_web_search is False

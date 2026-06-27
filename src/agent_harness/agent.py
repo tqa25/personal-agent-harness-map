@@ -45,10 +45,9 @@ def build_agent(
     OpenAIChatClient, create_harness_agent = _load_agent_framework()
 
     client = OpenAIChatClient(
-        model=config.openai_model,
-        api_key=os.getenv("OPENAI_API_KEY"),
-        base_url=config.openai_base_url,
-        org_id=config.openai_org_id,
+        model=config.openrouter_model,
+        api_key=os.getenv("OPENROUTER_API_KEY"),
+        base_url=config.openrouter_base_url,
     )
 
     return create_harness_agent(

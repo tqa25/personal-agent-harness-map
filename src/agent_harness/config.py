@@ -8,16 +8,16 @@ from agent_harness.autonomy import AutonomyLevel
 from agent_harness.autonomy import AutonomyModeError
 from agent_harness.autonomy import parse_autonomy_level
 
-DEFAULT_MODEL = "gpt-5.4"
 DEFAULT_MEMORY_DIR = "agent-file-memory"
 DEFAULT_SEARCH_PROVIDER = "microsoft"
+DEFAULT_OPENROUTER_MODEL = "~openai/gpt-latest"
+DEFAULT_OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 
 @dataclass(frozen=True)
 class HarnessConfig:
-    openai_model: str = DEFAULT_MODEL
-    openai_base_url: str | None = None
-    openai_org_id: str | None = None
+    openrouter_model: str = DEFAULT_OPENROUTER_MODEL
+    openrouter_base_url: str = DEFAULT_OPENROUTER_BASE_URL
     memory_dir: str = DEFAULT_MEMORY_DIR
     repository_root: Path = Path(".")
     search_provider: str = DEFAULT_SEARCH_PROVIDER
@@ -37,9 +37,10 @@ class HarnessConfig:
             raise ConfigError(str(exc)) from exc
 
         return cls(
-            openai_model=os.getenv("OPENAI_MODEL", DEFAULT_MODEL),
-            openai_base_url=os.getenv("OPENAI_BASE_URL") or None,
-            openai_org_id=os.getenv("OPENAI_ORG_ID") or None,
+            openrouter_model=os.getenv("OPENROUTER_MODEL", DEFAULT_OPENROUTER_MODEL),
+            openrouter_base_url=os.getenv(
+                "OPENROUTER_BASE_URL", DEFAULT_OPENROUTER_BASE_URL
+            ),
             memory_dir=os.getenv("AGENT_MEMORY_DIR", DEFAULT_MEMORY_DIR),
             repository_root=Path(os.getenv("AGENT_REPOSITORY_ROOT", ".")).resolve(),
             search_provider=os.getenv("AGENT_SEARCH_PROVIDER", DEFAULT_SEARCH_PROVIDER),

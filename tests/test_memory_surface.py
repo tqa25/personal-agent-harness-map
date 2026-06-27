@@ -114,13 +114,13 @@ def test_memory_write_redacts_obvious_secrets(tmp_path) -> None:
 
     memory.write(
         "recurring_error",
-        "Request failed with OPENAI_API_KEY=sk-proj-abcdefghijklmnopqrstuvwxyz1234567890.",
+        "Request failed with OPENROUTER_API_KEY=sk-or-abcdefghijklmnopqrstuvwxyz1234567890.",
         context="Bearer ghp_abcdefghijklmnopqrstuvwxyz1234567890abcdef was in logs.",
         timestamp=datetime(2026, 6, 26, 12, 0, tzinfo=UTC),
     )
 
     errors = (tmp_path / ".learnings" / "ERRORS.md").read_text()
-    assert "sk-proj-" not in errors
+    assert "sk-or-" not in errors
     assert "ghp_" not in errors
-    assert "OPENAI_API_KEY=[REDACTED]" in errors
+    assert "OPENROUTER_API_KEY=[REDACTED]" in errors
     assert "Bearer [REDACTED]" in errors

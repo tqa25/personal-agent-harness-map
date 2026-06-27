@@ -34,7 +34,7 @@ class FakeResponse:
 
 def _build_config(tmp_path: Path) -> HarnessConfig:
     return HarnessConfig(
-        openai_model="gpt-5.4",
+        openrouter_model="~openai/gpt-latest",
         repository_root=tmp_path,
         default_autonomy_level=AutonomyLevel.EDIT,
     )

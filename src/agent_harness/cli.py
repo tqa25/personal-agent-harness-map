@@ -26,9 +26,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.check_config:
         print("Configuration OK")
-        print(f"Model: {config.openai_model}")
-        print(f"Base URL: {config.openai_base_url or 'default'}")
-        print(f"Org ID: {config.openai_org_id or 'default'}")
+        print(f"Model: {config.openrouter_model}")
+        print(f"Base URL: {config.openrouter_base_url}")
         print(f"Repository root: {config.repository_root}")
         print(f"Memory dir: {config.memory_dir}")
         print(f"Search provider: {config.search_provider}")
@@ -50,7 +49,7 @@ if __name__ == "__main__":
 
 
 def _print_secret_status(config: HarnessConfig) -> None:
-    required_variables = ["OPENAI_API_KEY"]
+    required_variables = ["OPENROUTER_API_KEY"]
     if config.search_provider not in {"microsoft", "fake"}:
         required_variables.append("SEARCH_PROVIDER_API_KEY")
 
