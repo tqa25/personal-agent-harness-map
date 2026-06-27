@@ -5,7 +5,7 @@ This repo contains a small Python agent harness scaffold based on Microsoft's
 
 It builds a general-purpose harness agent with:
 
-- Microsoft Foundry chat client configuration from environment variables.
+- OpenAI chat client configuration from environment variables.
 - A custom tool exposed to the model.
 - Planning mode, todos, memory, and hosted web search enabled by default.
 - A streaming console entrypoint.
@@ -14,17 +14,24 @@ It builds a general-purpose harness agent with:
 
 - Python 3.11+
 - `uv`
-- Azure CLI login for the default credential path
-- A Microsoft Foundry project endpoint that supports Responses and hosted web search
+- An OpenAI API key
+- Optional `OPENAI_BASE_URL` if you are using a compatible non-default endpoint
 
 ## Configure
 
 ```bash
-export FOUNDRY_PROJECT_ENDPOINT="https://..."
-export FOUNDRY_MODEL="gpt-5.4"
+export OPENAI_API_KEY="sk-..."
+export OPENAI_MODEL="gpt-5.4"
 ```
 
-`FOUNDRY_MODEL` is optional. If omitted, the app uses the article's default
+Optional variables:
+
+```bash
+export OPENAI_BASE_URL="https://api.openai.com/v1"
+export OPENAI_ORG_ID="org_..."
+```
+
+`OPENAI_MODEL` is optional. If omitted, the app uses the article's default
 model name.
 
 ## Install and Run

@@ -17,13 +17,13 @@ from agent_harness.secrets import (
 def test_secret_config_reports_missing_required_variables() -> None:
     with pytest.raises(SecretConfigError) as exc_info:
         SecretConfig.from_env(
-            ["FOUNDRY_PROJECT_ENDPOINT", "BING_SEARCH_API_KEY"],
+            ["OPENAI_API_KEY", "SEARCH_PROVIDER_API_KEY"],
             environ={},
         )
 
     message = str(exc_info.value)
-    assert "FOUNDRY_PROJECT_ENDPOINT" in message
-    assert "BING_SEARCH_API_KEY" in message
+    assert "OPENAI_API_KEY" in message
+    assert "SEARCH_PROVIDER_API_KEY" in message
     assert "Set the missing environment variables" in message
 
 
@@ -33,14 +33,14 @@ def test_secret_config_reads_environment_values_without_repr_leaks(
     model_secret = "model-provider-secret-value"
     search_secret = "search-provider-secret-value"
     monkeypatch.setenv("OPENAI_API_KEY", model_secret)
-    monkeypatch.setenv("BING_SEARCH_API_KEY", search_secret)
+    monkeypatch.setenv("SEARCH_PROVIDER_API_KEY", search_secret)
 
     config = SecretConfig.from_env(
-        ["OPENAI_API_KEY", "BING_SEARCH_API_KEY"],
+        ["OPENAI_API_KEY", "SEARCH_PROVIDER_API_KEY"],
     )
 
     assert config.value("OPENAI_API_KEY") == model_secret
-    assert config.value("BING_SEARCH_API_KEY") == search_secret
+    assert config.value("SEARCH_PROVIDER_API_KEY") == search_secret
     assert model_secret not in repr(config)
     assert search_secret not in repr(config)
     assert "[REDACTED]" in repr(config)
