@@ -5,6 +5,8 @@ import sys
 
 from agent_harness.config import ConfigError, HarnessConfig
 from agent_harness.console import run_console_sync
+from agent_harness.secrets import SecretConfig
+from agent_harness.secrets import SecretConfigError
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -26,7 +28,11 @@ def main(argv: list[str] | None = None) -> int:
         print("Configuration OK")
         print(f"Endpoint: {config.foundry_project_endpoint}")
         print(f"Model: {config.foundry_model}")
+        print(f"Repository root: {config.repository_root}")
         print(f"Memory dir: {config.memory_dir}")
+        print(f"Search provider: {config.search_provider}")
+        print(f"Default autonomy: {config.default_autonomy_level.value}")
+        _print_secret_status(config)
         return 0
 
     try:
@@ -40,3 +46,17 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def _print_secret_status(config: HarnessConfig) -> None:
+    required_variables = ["FOUNDRY_PROJECT_ENDPOINT"]
+    if config.search_provider not in {"microsoft", "fake"}:
+        required_variables.append("SEARCH_PROVIDER_API_KEY")
+
+    try:
+        SecretConfig.from_env(required_variables)
+    except SecretConfigError as exc:
+        print(f"Secret status: {exc}")
+        return
+
+    print("Secret status: configured")
